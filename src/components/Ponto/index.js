@@ -2,59 +2,50 @@ import React, {useState, useEffect} from 'react';
 
 import {
 	Container,
-	PontoBox,
-	CurrentTime,
-	ButtonTray
+	PontoBox
 } from './style';
 
+import {ButtonTray} from '../ButtonTray';
+import {Watch} from '../Watch';
+
 function Ponto(){
-	const [time, setTime] = useState(new Date().toLocaleString());
-	const [timeInterval, setTimeInterval] = useState();
+	const [time, setTime] = useState(new Date());
 
-	function tick() {
-		let current = new Date().toLocaleString();
-		if (time !== current) setTime(current);
+	const [periods, setPeriods] = useState([]);
+	const [active, setActive] = useState(false);
+
+	const stopJourney = () => {
+		var snapShot = periods;
+		var currentPeriod = snapShot.pop();
+
+		currentPeriod[1] = time;
+		snapShot.push(currentPeriod);
+
+		setPeriods(snapShot);
+		setActive(false);
 	};
 
-	function stopTime(){
-		clearInterval(timeInterval)
-		setTimeInterval(undefined);
-	};
-
-	function startTime(){
-		if( timeInterval == undefined ) {
-			setTimeInterval(
-				setInterval(tick, 1000)
-			);
-			setTime(new Date().toLocaleString());
-		}
+	const startJourney = () => {
+		setPeriods([
+			...periods,
+			[time, null]
+		]);
+		setActive(true);
 	}
-
-	useEffect(() => {
-		startTime();
-	},[])
 
 	return (
 		<Container>
 			<PontoBox>
-				<CurrentTime>
-					<h1>{ time }</h1>
-				</CurrentTime>
+				<Watch
+					time={ time }
+					setTime={(t) => setTime(t)}
+				/>
 
-				<ButtonTray>
-					<button
-						onClick={ () => stopTime() }
-						disabled={ timeInterval == undefined }
-					>
-					Parar
-					</button>
-					<button
-						onClick={ () => startTime(timeInterval) }
-						disabled={ timeInterval != undefined }
-					>
-					Recomeçar
-					</button>
-				</ButtonTray>
+				<ButtonTray
+					isActive={ active }
+					start={ () => startJourney() }
+					stop={ () => stopJourney() }
+				/>
 			</PontoBox>
 		</Container>
 	);
