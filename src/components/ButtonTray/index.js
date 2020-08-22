@@ -3,7 +3,7 @@ import React from 'react';
 import {Container, Button} from './style.js';
 
 function ButtonTray(props) {
-	const { start, stop, isActive } = props;
+	const { start, stop, finish, isActive } = props;
 
 	return (
 		<Container>
@@ -16,6 +16,10 @@ function ButtonTray(props) {
 				onClick={ () => start() }
 				disabled={ isActive } >
 			Começar
+			</Button>
+			<Button
+				onClick={ () => finish() } >
+			Finalizar
 			</Button>
 		</Container>
 	);

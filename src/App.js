@@ -9,6 +9,7 @@ function App() {
   return (
 	<GlobalContext>
 		<Ponto />
+
 		<GlobalStyles />
 	</GlobalContext>
   );

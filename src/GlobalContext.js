@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const Context = React.createContext();
+const Context = React.createContext({
+	setPeriod: () => {}
+});
 
-function GlobalContext({ children }) {
+export function GlobalContext({ children }) {
+	// const [journey, setJourney] = useState();
+	const [period, setPeriod] = useState([]);
+
 	return (
-		<Context.Provider value={""}>
+		<Context.Provider value={{ setPeriod }}>
 			{ children }
 		</Context.Provider>
 	)
 }
 
-export { GlobalContext }
+export default Context;
