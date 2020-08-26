@@ -19,4 +19,9 @@ export const Button = styled.button`
 	:disabled {
 		background-color: #ccc;
 	}
+
+	>svg {
+		vertical-align: middle;
+		margin-left: 5px;
+	}
 `;
