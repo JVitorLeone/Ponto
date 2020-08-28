@@ -8,12 +8,15 @@ import {
 import Context from '../../GlobalContext';
 import {Watch} from '../Watch';
 import {ButtonTray} from '../ButtonTray';
+import {Limit} from '../Limit';
 import {Hourglass} from '../Hourglass';
 
 function Ponto(){
 	const {setPeriod} = useContext(Context);
 
 	const [currentTime, setCurrentTime] = useState(new Date());
+
+	const [limit, setLimit] = useState(0);
 
 	const [periods, setPeriods] = useState([]);
 	const [active, setActive] = useState(false);
@@ -41,6 +44,8 @@ function Ponto(){
 		setPeriod(periods);
 	};
 
+
+
 	return (
 		<Container>
 			<PontoBox>
@@ -56,9 +61,12 @@ function Ponto(){
 					finish={ () => finishPeriod() }
 				/>
 
+				<Limit setLimit={(l) => setLimit(l)}/>
+
 				<Hourglass
 					isActive={ active }
 					currentTime={ currentTime }
+					limit = { limit }
 					periods={ periods }
 				/>
 			</PontoBox>

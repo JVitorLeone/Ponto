@@ -18,11 +18,18 @@ export const Container = styled.div`
 		font-weight: bold;
 		letter-spacing: 5px;
 
-		padding: 4px 0;
+		padding: 0 0 4px 0;
+
+		>p {
+			padding: 3px 0;
+			background-color: rgba(0,0,0,0.1);
+			font-size: small;
+			letter-spacing: initial;
+		}
 	}
 `;
 
-export const Elapsed = styled.div`
+export const Total = styled.div`
 	background-color: lightgreen;
 `;
 
@@ -30,7 +37,7 @@ export const Remaining = styled.div`
 	background-color: lightsalmon;
 `;
 
-export const Goal = styled.span`
+export const Limit = styled.span`
 	display: flex;
 	justify-content: end;
 	align-items: center;
@@ -38,15 +45,4 @@ export const Goal = styled.span`
 	padding: 6px 0;
 
 	font-size: small;
-`;
-
-export const GoalInput = styled.input`
-	width: 100px;
-	height: 30px;
-
-	margin-left: 10px;
-
-	:focus {
-
-	}
 `;

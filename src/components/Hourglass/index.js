@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from 'react';
+import {getStringHour} from '../../utils/DateUtils'
 
 import {
 	Container,
-	Elapsed,
-	Remaining,
-	Goal,
-	GoalInput
+	Total,
+	Remaining
 } from './style';
 
 function Hourglass(props){
 
-	const { isActive, currentTime, periods } = props;
+	const { isActive, currentTime, periods, limit } = props;
 
 	useEffect(() => {
 		if (isActive) {
@@ -33,11 +32,6 @@ function Hourglass(props){
 		}
 	},[periods]);
 
-	const [openTime, setOpenTime] = useState(0);
-	const [closedTime, setClosedTime] = useState(0);
-	const [goal, setGoal] = useState(0);
-	const [durations, setDurations] = useState([]);
-
 	function closedPeriodHours(period) {
 		return Math.round(period[1].getTime() - period[0].getTime());
 	}
@@ -46,38 +40,16 @@ function Hourglass(props){
 		return Math.round(currentTime.getTime() - periods.slice(-1)[0][0].getTime());
 	}
 
-	function getStringHour(duration) {
-		var seconds = Math.floor((duration / 1000) % 60),
-			minutes = Math.floor((duration / (1000 * 60)) % 60),
-			hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-		hours = (hours < 10) ? "0" + hours : hours;
-		minutes = (minutes < 10) ? "0" + minutes : minutes;
-		seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-		return hours + ":" + minutes + ":" + seconds;
-	}
-
-	function getTime(sHours) {
-		sHours = sHours.split(":")
-		var seconds = sHours[2] * 1000 || 0,
-			minutes = sHours[1] * 1000 * 60,
-			hours = sHours[0] * 1000 * 60 * 60;
-
-		return Number(seconds + minutes + hours + 500);
-	}
-
-	function changeGoal(value){
-		if (value){
-			setGoal(getTime(value));
-		} else {
-			setGoal(0);
-		}
-	}
+	const [openTime, setOpenTime] = useState(0);
+	const [closedTime, setClosedTime] = useState(0);
+	const totalTime = closedTime + openTime;
+	const remainingTime = limit !== 0 ? limit - (closedTime + openTime) : 0;
 
 	useEffect(() => {
 		setOpenTime(0);
 	},[closedTime]);
+
+	const [durations, setDurations] = useState([]);
 
 	useEffect(() => {
 		if (durations.length) {
@@ -88,20 +60,15 @@ function Hourglass(props){
 
 	return (
 		<Container>
-			<Goal>
-				Duração do expediente:
-				<GoalInput
-					type="time"
-					placeholder={ getStringHour(goal) }
-					onChange={ ({target}) => changeGoal(target.value) }
-				/>
-			</Goal>
 
-			<Elapsed>
-				{ getStringHour(closedTime + openTime) }
-			</Elapsed>
+			<Total>
+				<p>horas trabalhadas</p>
+				{ getStringHour(totalTime) }
+			</Total>
+
 			<Remaining>
-				{ getStringHour(goal - (closedTime + openTime)) }
+				<p>horas restantes</p>
+				{ getStringHour(remainingTime) }
 			</Remaining>
 
 		</Container>

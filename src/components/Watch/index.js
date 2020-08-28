@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 
 import {Container} from './style';
 
+const refreshDelay = 60 * 1000;
+
 function Watch({ time, setTime }) {
 
 	function tick() {
