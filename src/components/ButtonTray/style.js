@@ -6,6 +6,8 @@ export const Container = styled.div`
 	justify-content: center;
 
 	width: 100%;
+
+	margin-top: 15px;
 `;
 
 export const Button = styled.button`

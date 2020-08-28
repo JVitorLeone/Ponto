@@ -3,14 +3,15 @@ import styled from 'styled-components';
 export const Container = styled.div`
 	display: flex;
 	justify-content: center;
-	align-items: center;
 
-	width: 1024px;
+	background-color: #eee;
+
+	width: 100vw;
 	height: 100vh;
 
 	margin: 0 auto;
+	padding-top: 50px;
 
-	background-color: #eee;
 `;
 
 export const PontoBox = styled.div`
@@ -19,6 +20,7 @@ export const PontoBox = styled.div`
 	align-items: center;
 
 	width: 500px;
+	height: max-content;
 
 	padding: 25px;
 	background-color: #ddd;

@@ -6,23 +6,23 @@ import {
 } from './style';
 
 import Context from '../../GlobalContext';
-import {ButtonTray} from '../ButtonTray';
 import {Watch} from '../Watch';
-import {CurrentPeriod} from '../CurrentPeriod';
+import {ButtonTray} from '../ButtonTray';
+import {Hourglass} from '../Hourglass';
 
 function Ponto(){
 	const {setPeriod} = useContext(Context);
 
-	const [time, setTime] = useState(new Date());
+	const [currentTime, setCurrentTime] = useState(new Date());
 
 	const [periods, setPeriods] = useState([]);
 	const [active, setActive] = useState(false);
 
 	const stopPeriod = () => {
-		var snapShot = periods;
-		var currentPeriod = snapShot.pop();
+		var snapShot = [...periods];
+		var currentPeriod = snapShot.slice(-1)[0];
 
-		currentPeriod[1] = time;
+		currentPeriod[1] = currentTime;
 		snapShot.push(currentPeriod);
 
 		setPeriods(snapShot);
@@ -32,7 +32,7 @@ function Ponto(){
 	const startPeriod = () => {
 		setPeriods([
 			...periods,
-			[time, null]
+			[currentTime, null]
 		]);
 		setActive(true);
 	};
@@ -45,8 +45,8 @@ function Ponto(){
 		<Container>
 			<PontoBox>
 				<Watch
-					time={ time }
-					setTime={(t) => setTime(t)}
+					time={ currentTime }
+					setTime={(t) => setCurrentTime(t)}
 				/>
 
 				<ButtonTray
@@ -56,7 +56,11 @@ function Ponto(){
 					finish={ () => finishPeriod() }
 				/>
 
-				<CurrentPeriod />
+				<Hourglass
+					isActive={ active }
+					currentTime={ currentTime }
+					periods={ periods }
+				/>
 			</PontoBox>
 		</Container>
 	);
