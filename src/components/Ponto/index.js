@@ -10,23 +10,24 @@ import {Watch} from '../Watch';
 import {ButtonTray} from '../ButtonTray';
 import {Limit} from '../Limit';
 import {Hourglass} from '../Hourglass';
+import {Ticket} from '../Ticket';
 
 function Ponto(){
-	const {setPeriod} = useContext(Context);
+	const {lastJourney, addJourney} = useContext(Context);
 
 	const [currentTime, setCurrentTime] = useState(new Date());
 
 	const [limit, setLimit] = useState(0);
 
 	const [periods, setPeriods] = useState([]);
+
 	const [active, setActive] = useState(false);
 
 	const stopPeriod = () => {
-		var snapShot = [...periods];
+		var snapShot = periods.slice();
 		var currentPeriod = snapShot.slice(-1)[0];
 
 		currentPeriod[1] = currentTime;
-		snapShot.push(currentPeriod);
 
 		setPeriods(snapShot);
 		setActive(false);
@@ -41,10 +42,11 @@ function Ponto(){
 	};
 
 	const finishPeriod = () => {
-		setPeriod(periods);
+
+		addJourney(periods);
+		setPeriods([]);
+		setActive(false);
 	};
-
-
 
 	return (
 		<Container>
@@ -55,19 +57,28 @@ function Ponto(){
 				/>
 
 				<ButtonTray
+					canStart={ limit !== 0 }
+					canFinish={ !!periods.length }
 					isActive={ active }
 					start={ () => startPeriod() }
 					stop={ () => stopPeriod() }
 					finish={ () => finishPeriod() }
 				/>
 
-				<Limit setLimit={(l) => setLimit(l)}/>
+				<Limit
+					setLimit={(l) => setLimit(l)}
+					limit={ limit }
+				/>
 
 				<Hourglass
 					isActive={ active }
 					currentTime={ currentTime }
 					limit = { limit }
 					periods={ periods }
+				/>
+
+				<Ticket
+					journey={ lastJourney() }
 				/>
 			</PontoBox>
 		</Container>

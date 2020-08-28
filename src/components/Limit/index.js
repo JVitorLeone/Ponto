@@ -6,7 +6,12 @@ import {
 	LimitInput
 } from './style';
 
-function Limit({setLimit}){
+
+/*
+	TODO: Incluir mensagem informando que é necessário
+			adicionar um limite
+*/
+function Limit({limit, setLimit}){
 
 	function changeGoal(value){
 		if (value){

@@ -9,15 +9,34 @@ import {
 
 function Hourglass(props){
 
-	const { isActive, currentTime, periods, limit } = props;
+	const {isActive, currentTime, periods, limit} = props;
+	const [openTime, setOpenTime] = useState(0);
+	const [closedTime, setClosedTime] = useState(0);
+	const [durations, setDurations] = useState([]);
+	const totalTime = closedTime + openTime;
+	const remainingTime = limit !== 0 ? limit - (closedTime + openTime) : 0;
 
 	useEffect(() => {
-		if (isActive) {
-			setOpenTime(Math.round(openPeriodHours()));
+		function openPeriodHours() {
+			return Math.round(currentTime.getTime() - periods.slice(-1)[0][0].getTime());
 		}
+
+		function updateTime() {
+			if (isActive) {
+				setOpenTime(
+					Math.round(openPeriodHours())
+				);
+			}
+		}
+
+		updateTime();
 	},[currentTime]);
 
 	useEffect(() => {
+		function closedPeriodHours(period) {
+			return Math.round(period[1].getTime() - period[0].getTime());
+		}
+
 		let last = periods.slice(-1)[0];
 
 		if (last !== undefined) {
@@ -26,30 +45,16 @@ function Hourglass(props){
 					...durations,
 					closedPeriodHours(last)
 				]);
-			} else {
-
 			}
+		} else {
+			setOpenTime(0);
+			setClosedTime(0);
 		}
 	},[periods]);
-
-	function closedPeriodHours(period) {
-		return Math.round(period[1].getTime() - period[0].getTime());
-	}
-
-	function openPeriodHours() {
-		return Math.round(currentTime.getTime() - periods.slice(-1)[0][0].getTime());
-	}
-
-	const [openTime, setOpenTime] = useState(0);
-	const [closedTime, setClosedTime] = useState(0);
-	const totalTime = closedTime + openTime;
-	const remainingTime = limit !== 0 ? limit - (closedTime + openTime) : 0;
 
 	useEffect(() => {
 		setOpenTime(0);
 	},[closedTime]);
-
-	const [durations, setDurations] = useState([]);
 
 	useEffect(() => {
 		if (durations.length) {
