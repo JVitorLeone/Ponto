@@ -6,12 +6,16 @@ export const Container = styled.div`
 
 	width: 325px;
 
+	font-family: 'Inconsolata', monospace;
+
 	background-color: khaki;
 
 	margin-top: 15px;
 	padding: 20px 10px;
 
-	font-family: 'Inconsolata', monospace;
+	> p {
+		padding-bottom: 3px;
+	}
 `;
 
 export const Title = styled.p`
@@ -32,4 +36,23 @@ export const Periods = styled.div`
 export const Period = styled.div`
 	display: flex;
 	justify-content: space-around;
+`;
+
+export const Button = styled.button`
+	border: none;
+	padding: 8px 16px;
+	margin: 12px 0 0;
+
+	:hover {
+		background-color: #fff;
+	}
+
+	:disabled {
+		background-color: #ccc;
+	}
+
+	>svg {
+		vertical-align: middle;
+		margin-left: 5px;
+	}
 `;

@@ -11,6 +11,8 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
+	flex: auto;
+
 	border: none;
 	padding: 8px 16px;
 

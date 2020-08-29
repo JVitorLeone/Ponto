@@ -1,11 +1,16 @@
 import React, {useContext} from 'react';
-import {getDateString, getHourString} from '../../utils/DateUtils';
+import {
+	getDateString,
+	getHourString,
+	getTimeToHourString
+} from '../../utils/DateUtils';
 
 import {
 	Container,
 	Title,
 	Periods,
-	Period
+	Period,
+	Button
 } from './style';
 
 import Context from '../../GlobalContext';
@@ -23,6 +28,14 @@ function Ticket({journey}){
 		</Period>
 	));
 
+	const totalTime = () => {
+		var total = 0;
+		for (var period of periods){
+			total += period[1].getTime() - period[0].getTime();
+		}
+		return total;
+	};
+
 	return (
 		<Container display={ journey ? "flex" : "flex" }>
 			<Title>Registro de Horas</Title>
@@ -37,10 +50,11 @@ function Ticket({journey}){
 					{renderPeriods}
 				</span>
 			</Periods>
-			<button
+			<p>Total: { getTimeToHourString(totalTime()) }</p>
+			<Button
 				onClick={ () => addJourney() }>
 				Arquivar
-			</button>
+			</Button>
 		</Container>
 	);
 }

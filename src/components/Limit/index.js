@@ -26,6 +26,7 @@ function Limit({limit, setLimit}){
 			Duração do expediente:
 			<LimitInput
 				type="time"
+				valid={ limit !== 0 }
 				onChange={ ({target}) => changeGoal(target.value) }
 			/>
 		</Container>

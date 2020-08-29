@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
- 	@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap');
 
 	:root {
 		--main-accent-color: rgb(72, 219, 99);
@@ -20,7 +19,8 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
-		font-family: 'Oswald', sans-serif;
+		/* font-family: 'Oswald', sans-serif; */
+		font-family: 'Roboto', sans-serif;
 		min-height: 100vh;
 	}
 

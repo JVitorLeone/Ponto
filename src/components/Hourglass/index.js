@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getStringHour} from '../../utils/DateUtils'
+import {getTimeToHourString} from '../../utils/DateUtils'
 
 import {
 	Container,
@@ -68,12 +68,12 @@ function Hourglass(props){
 
 			<Total>
 				<p>horas trabalhadas</p>
-				{ getStringHour(totalTime) }
+				{ getTimeToHourString(totalTime) }
 			</Total>
 
 			<Remaining>
 				<p>horas restantes</p>
-				{ getStringHour(remainingTime) }
+				{ getTimeToHourString(remainingTime) }
 			</Remaining>
 
 		</Container>
