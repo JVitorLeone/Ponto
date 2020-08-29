@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
 	getDateString,
 	getHourString,
@@ -6,6 +6,7 @@ import {
 } from '../../utils/DateUtils';
 
 import {
+	Wrapper,
 	Container,
 	Title,
 	Periods,
@@ -18,10 +19,19 @@ import Context from '../../GlobalContext';
 function Ticket({journey}){
 
 	const {addJourney} = useContext(Context);
-
 	const {date, periods} = journey;
+	const [print, setPrint] = useState(false);
+	const [opacity, setOpacity] = useState(1);
 
-	const renderPeriods = periods.map((period, key)=> (
+	useEffect(() => {
+		setPrint(date !== undefined);
+
+		return function opacity() {
+			setOpacity(date ? 1 : 0);
+		}
+	},[journey]);
+
+	const renderPeriods = periods && periods.map((period, key)=> (
 		<Period key={key}>
 			<span>{ getHourString(period[0]) }</span>
 			<span>{ getHourString(period[1]) }</span>
@@ -36,26 +46,36 @@ function Ticket({journey}){
 		return total;
 	};
 
+	const saveTicket = () => {
+		setPrint(false);
+		addJourney();
+	}
+
 	return (
-		<Container display={ journey ? "flex" : "flex" }>
-			<Title>Registro de Horas</Title>
-			<p>Data: { getDateString(date) }</p>
-			<Periods>
-				<span>Periodos({periods.length}): </span>
-				<span>
-					<Period>
-						<span>Início</span>
-						<span>Fim</span>
-					</Period>
-					{renderPeriods}
-				</span>
-			</Periods>
-			<p>Total: { getTimeToHourString(totalTime()) }</p>
-			<Button
-				onClick={ () => addJourney() }>
-				Arquivar
-			</Button>
-		</Container>
+		<Wrapper>
+			{ print && (
+				<Container opacity={ opacity }>
+					<Title>Registro de Horas</Title>
+					<p>Data: { getDateString(date) }</p>
+					<Periods>
+						<span>Periodos({periods.length}): </span>
+						<span>
+							<Period>
+								<span>Início</span>
+								<span>Fim</span>
+							</Period>
+							{renderPeriods}
+						</span>
+					</Periods>
+					<p>Total: { getTimeToHourString(totalTime()) }</p>
+					<Button
+						onClick={ () => saveTicket() }>
+						Arquivar
+					</Button>
+				</Container>
+			)}
+
+		</Wrapper>
 	);
 }
 

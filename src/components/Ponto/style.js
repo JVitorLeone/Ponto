@@ -11,7 +11,6 @@ export const Container = styled.div`
 
 	margin: 0 auto;
 	padding-top: 50px;
-
 `;
 
 export const PontoBox = styled.div`
@@ -25,4 +24,18 @@ export const PontoBox = styled.div`
 	padding: 25px;
 	background-color: #ddd;
 	border-radius: 5px;
+`;
+
+export const Actions = styled.div`
+	width: 100%;
+	background-color: #ddd;
+	z-index: 1;
+`;
+
+export const Printer = styled.div`
+	width: 320px;
+
+	border-bottom: 5px solid grey;
+
+	margin: 25px auto 0;
 `;

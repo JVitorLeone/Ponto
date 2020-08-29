@@ -2,7 +2,9 @@ import React, {useState, useContext} from 'react';
 
 import {
 	Container,
-	PontoBox
+	PontoBox,
+	Actions,
+	Printer
 } from './style';
 
 import Context from '../../GlobalContext';
@@ -17,7 +19,7 @@ function Ponto(){
 
 	const [currentTime, setCurrentTime] = useState(new Date());
 
-	const [limit, setLimit] = useState(0);
+	const [limit, setLimit] = useState(5000000);
 
 	const [periods, setPeriods] = useState([]);
 
@@ -51,32 +53,35 @@ function Ponto(){
 	return (
 		<Container>
 			<PontoBox>
-				<Watch
-					time={ currentTime }
-					setTime={(t) => setCurrentTime(t)}
-				/>
+				<Actions>
+					<Watch
+						time={ currentTime }
+						setTime={(t) => setCurrentTime(t)}
+					/>
 
-				<ButtonTray
-					canStart={ limit !== 0 }
-					canFinish={ !!periods.length }
-					isActive={ active }
-					start={ () => startPeriod() }
-					stop={ () => stopPeriod() }
-					finish={ () => finishPeriod() }
-				/>
+					<Limit
+						setLimit={(l) => setLimit(l)}
+						limit={ limit }
+					/>
 
-				<Limit
-					setLimit={(l) => setLimit(l)}
-					limit={ limit }
-				/>
 
-				<Hourglass
-					isActive={ active }
-					currentTime={ currentTime }
-					limit = { limit }
-					periods={ periods }
-				/>
+					<ButtonTray
+						canStart={ limit !== 0 }
+						canFinish={ !!periods.length }
+						isActive={ active }
+						start={ () => startPeriod() }
+						stop={ () => stopPeriod() }
+						finish={ () => finishPeriod() }
+					/>
 
+					<Hourglass
+						isActive={ active }
+						currentTime={ currentTime }
+						limit = { limit }
+						periods={ periods }
+					/>
+					<Printer />
+				</Actions>
 				<Ticket
 					journey={ getCurrent() }
 				/>

@@ -3,6 +3,11 @@ import styled from 'styled-components';
 export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
+
+	@media (min-width: 420px) {
+		flex-direction: row;
+	}
+
 	width: 100%;
 
 	margin-top: 15px;

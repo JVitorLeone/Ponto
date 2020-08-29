@@ -1,19 +1,14 @@
 import React, {useState} from 'react';
 
+
+
 const Context = React.createContext({
 	setPeriod: () => {}
 });
 
 export function GlobalContext({ children }) {
 
-	const [currentJourney, setCurrenJourney] = useState({
-		date: new Date(),
-		periods: [
-			[new Date(),new Date()],
-			[new Date(),new Date()],
-			[new Date(),new Date()]
-		]
-	});
+	const [currentJourney, setCurrenJourney] = useState({});
 
 	const getCurrent = () => currentJourney;
 

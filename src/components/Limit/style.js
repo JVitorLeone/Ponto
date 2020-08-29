@@ -11,7 +11,6 @@ export const Container = styled.div`
 	margin-top: 15px;
 	padding: 6px 0;
 
-	font-size: small;
 `;
 
 export const LimitInput = styled.input`

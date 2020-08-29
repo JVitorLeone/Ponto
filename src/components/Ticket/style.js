@@ -1,21 +1,37 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div`
+	position: relative;
+
+
+`;
+
 export const Container = styled.div`
-	display: ${props => props.display};
+	position: absolute;
+	left: calc(50% - 150px);
+	display: flex;
 	flex-direction: column;
 
-	width: 325px;
+	width: 300px;
 
 	font-family: 'Inconsolata', monospace;
 
 	background-color: khaki;
 
-	margin-top: 15px;
 	padding: 20px 10px;
 
 	> p {
 		padding-bottom: 3px;
 	}
+
+	animation: print 5s linear;
+	@keyframes print {
+		from { bottom: 0; }
+		50% { bottom: -200px }
+		to { top: 0; bottom: unset; }
+	}
+
+	z-index: 0;
 `;
 
 export const Title = styled.p`
