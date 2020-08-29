@@ -13,7 +13,7 @@ import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
 
 function Ponto(){
-	const {lastJourney, addJourney} = useContext(Context);
+	const {getCurrent, setCurrent} = useContext(Context);
 
 	const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -43,7 +43,7 @@ function Ponto(){
 
 	const finishPeriod = () => {
 
-		addJourney(periods);
+		setCurrent(periods);
 		setPeriods([]);
 		setActive(false);
 	};
@@ -78,7 +78,7 @@ function Ponto(){
 				/>
 
 				<Ticket
-					journey={ lastJourney() }
+					journey={ getCurrent() }
 				/>
 			</PontoBox>
 		</Container>

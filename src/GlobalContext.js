@@ -5,18 +5,39 @@ const Context = React.createContext({
 });
 
 export function GlobalContext({ children }) {
-	const [journeys, setJourneys] = useState([]);
 
-	const lastJourney = () => journeys.slice(-1)[0];
+	const [currentJourney, setCurrenJourney] = useState({
+		date: new Date(),
+		periods: [
+			[new Date(),new Date()],
+			[new Date(),new Date()],
+			[new Date(),new Date()]
+		]
+	});
 
-	const addJourney = (j) => {
+	const getCurrent = () => currentJourney;
+
+	const setCurrent = (p) => {
+		var newJourney = {
+			date: new Date(),
+			periods: p
+		};
+
+		setCurrenJourney(newJourney);
+	};
+
+	const [journeys, setJourneys] = useState([currentJourney]);
+
+	const addJourney = () => {
 		setJourneys([
-			...journeys, j
+			...journeys,
+			currentJourney
 		]);
-	}
+	};
 
 	return (
-		<Context.Provider value={{ lastJourney, addJourney }}>
+		<Context.Provider
+			value={{ getCurrent, setCurrent, addJourney }}>
 			{ children }
 		</Context.Provider>
 	)

@@ -18,3 +18,11 @@ export function getTime(sHours) {
 
 	return Number(seconds + minutes + hours + 500);
 }
+
+export function getDateString(date) {
+	return date.toLocaleString().slice(0,10);
+}
+
+export function getHourString(date) {
+	return date.toLocaleString().slice(11);
+}
