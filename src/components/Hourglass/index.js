@@ -65,17 +65,19 @@ function Hourglass(props){
 
 	return (
 		<Container>
+			{ periods.length > 0 && (
+				<>
+					<Total>
+						<p>horas trabalhadas</p>
+						{ getTimeToHourString(totalTime) }
+					</Total>
 
-			<Total>
-				<p>horas trabalhadas</p>
-				{ getTimeToHourString(totalTime) }
-			</Total>
-
-			<Remaining>
-				<p>horas restantes</p>
-				{ getTimeToHourString(remainingTime) }
-			</Remaining>
-
+					<Remaining>
+						<p>horas restantes</p>
+						{ getTimeToHourString(remainingTime) }
+					</Remaining>
+				</>
+			)}
 		</Container>
 	)
 }

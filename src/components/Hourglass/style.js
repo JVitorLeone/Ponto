@@ -25,6 +25,12 @@ export const Container = styled.div`
 
 		padding: 0 0 4px 0;
 
+		animation: opacity .5s linear;
+		@keyframes opacity {
+			from { opacity:0 }
+			to { opacity:1 }
+		}
+
 		>p {
 			padding: 3px 0;
 			background-color: rgba(0,0,0,0.1);
@@ -35,11 +41,11 @@ export const Container = styled.div`
 `;
 
 export const Total = styled.div`
-	background-color: lightgreen;
+	background-color: var(--green);
 `;
 
 export const Remaining = styled.div`
-	background-color: lightsalmon;
+	background-color: var(--orange);
 `;
 
 export const Limit = styled.span`

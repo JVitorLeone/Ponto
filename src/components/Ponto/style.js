@@ -4,7 +4,7 @@ export const Container = styled.div`
 	display: flex;
 	justify-content: center;
 
-	background-color: #eee;
+	background-color: var(--main-dark);
 
 	width: 100vw;
 	height: 100vh;
@@ -22,20 +22,25 @@ export const PontoBox = styled.div`
 	height: max-content;
 
 	padding: 25px;
-	background-color: #ddd;
+	background-color: var(--sec-dark);
 	border-radius: 5px;
 `;
 
 export const Actions = styled.div`
 	width: 100%;
-	background-color: #ddd;
+	background-color: var(--sec-dark);
 	z-index: 1;
 `;
 
 export const Printer = styled.div`
 	width: 320px;
 
-	border-bottom: 5px solid grey;
+	border: 8px solid var(--main-dark);
+	border-bottom: 4px solid var(--sec-dark);
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 
 	margin: 25px auto 0;
+
+	box-shadow: 0 2px 3px rgba(0,0,0,.5);
 `;

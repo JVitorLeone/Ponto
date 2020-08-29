@@ -4,8 +4,10 @@ export const Container = styled.div`
 	width: 100%;
 
 	padding: 8px;
-	background-color: rgba(0,0,0,.8);
+	background-color: var(--ter-dark);
 	color: green;
+
+	border-color: rgba(0,0,0,.2);
 
 	>h1 {
 		display: table;

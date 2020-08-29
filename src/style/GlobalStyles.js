@@ -3,13 +3,14 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
 
 	:root {
-		--main-accent-color: rgb(72, 219, 99);
-		--sec-accent-color: rgb(57, 201, 84);
-		--opc-accent-color: rgb(102, 185, 121);
-		--main-light-color: rgb(238, 243, 244);
-		--sec-light-color: rgb(228, 228, 228);
-		--main-dark-color: rgb(90, 86, 85);
-		--sec-dark-color: rgb(61, 59, 59);
+		--main-dark: rgb(28, 28, 28);
+		--sec-dark: rgb(46, 46, 46);
+		--ter-dark: rgb(37,37,37);
+		--main-light: #ffffff;
+		--green: #8bee8b;
+		--orange: #ff9e80;
+		--yellow: rgb(247, 246, 200);
+
 	}
 
 	* {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Container, Button} from './style.js';
 
-import { StopIcon, PlayIcon, CheckIcon } from '../../icons';
+import { PauseIcon, PlayIcon, CheckIcon } from '../../icons';
 
 function ButtonTray(props) {
 	const { start, stop, finish, isActive, canStart, canFinish } = props;
@@ -16,22 +16,22 @@ function ButtonTray(props) {
 				onClick={ () => start() }
 				disabled={ !ableToStart }
 			>
-				Começar
 				<PlayIcon/>
+				Começar
 			</Button>
 			<Button
 				onClick={ () => stop() }
 				disabled={ !isActive }
 			>
-				Parar
-				<StopIcon/>
+				<PauseIcon/>
+				Pausar
 			</Button>
 			<Button
 				onClick={ () => finish() }
 				disabled={ !canFinish }
 			>
-				Finalizar
 				<CheckIcon/>
+				Finalizar
 			</Button>
 		</Container>
 	);

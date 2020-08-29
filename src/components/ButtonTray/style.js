@@ -5,6 +5,7 @@ export const Container = styled.div`
 	flex-direction: row;
 	justify-content: center;
 
+	background-color: var(--ter-dark);
 	width: 100%;
 
 	margin-top: 15px;
@@ -16,16 +17,21 @@ export const Button = styled.button`
 	border: none;
 	padding: 8px 16px;
 
-	:hover {
-		background-color: #fff;
+	background-color: inherit;
+	color: var(--main-light);
+
+	border: 1px solid rgba(0,0,0,.2);
+
+	:hover:not([disabled]) {
+		background-color: var(--main-dark);
 	}
 
 	:disabled {
-		background-color: #ccc;
+		color: rgba(255,255,255,.3);
 	}
 
 	>svg {
 		vertical-align: middle;
-		margin-left: 5px;
+		margin: 0 5px;
 	}
 `;

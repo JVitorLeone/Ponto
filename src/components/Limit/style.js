@@ -11,11 +11,11 @@ export const Container = styled.div`
 	margin-top: 15px;
 	padding: 6px 0;
 
+	color: var(--main-light);
 `;
 
 export const LimitInput = styled.input`
 	width: 100px;
-	height: 30px;
 
 	margin-left: 10px;
 `;
