@@ -1,9 +1,32 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
+
+
+
+export const Printer = styled.div`
+	position: relative;
+	width: 320px;
+
+	border: 12px solid var(--main-dark);
+	border-bottom: 4px solid var(--sec-dark);
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+
+	margin: 10px auto 0;
+
+	box-shadow: 0 2px 3px rgba(0,0,0,.5);
+`;
 
 export const Wrapper = styled.div`
-	position: relative;
+	position: absolute;
+    width: 100%;
+    height: ${props => props.height};
+    clip-path: inset(0);
 
-
+	animation: grow 1.8s ease-in-out;
+	@keyframes grow {
+		from {height: 0;}
+		to { height: ${props => props.height}; }
+	};
 `;
 
 export const Container = styled.div`
@@ -24,15 +47,25 @@ export const Container = styled.div`
 		padding-bottom: 3px;
 	}
 
-	animation: print 5s linear;
+	animation: print 2s ease-in-out;
 	@keyframes print {
-		from { bottom: 0; }
-		50% { bottom: -200px }
-		to { top: 0; bottom: unset; }
-	}
-
+		from {
+			transform: translateY(-100%);
+		}
+		20% {
+			transform: translateY(-90%);
+		}
+		40% {
+			transform: translateY(-70%);
+		}
+		to {
+			transform: translateY(0%);
+		}
+	};
 	z-index: 0;
 `;
+
+
 
 export const Title = styled.p`
 	text-align: center;

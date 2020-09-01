@@ -2,9 +2,7 @@ import React, {useState, useContext} from 'react';
 
 import {
 	Container,
-	PontoBox,
-	Actions,
-	Printer
+	PontoBox
 } from './style';
 
 import Context from '../../GlobalContext';
@@ -53,38 +51,37 @@ function Ponto(){
 	return (
 		<Container>
 			<PontoBox>
-				<Actions>
-					<Watch
-						time={ currentTime }
-						setTime={(t) => setCurrentTime(t)}
-					/>
 
-					<Limit
-						setLimit={(l) => setLimit(l)}
-						limit={ limit }
-					/>
+				<Watch
+					time={ currentTime }
+					setTime={(t) => setCurrentTime(t)}
+				/>
 
+				<ButtonTray
+					canStart={ limit !== 0 }
+					canFinish={ !!periods.length }
+					isActive={ active }
+					start={ () => startPeriod() }
+					stop={ () => stopPeriod() }
+					finish={ () => finishPeriod() }
+				/>
 
-					<ButtonTray
-						canStart={ limit !== 0 }
-						canFinish={ !!periods.length }
-						isActive={ active }
-						start={ () => startPeriod() }
-						stop={ () => stopPeriod() }
-						finish={ () => finishPeriod() }
-					/>
+				<Hourglass
+					isActive={ active }
+					currentTime={ currentTime }
+					limit = { limit }
+					periods={ periods }
+				/>
 
-					<Hourglass
-						isActive={ active }
-						currentTime={ currentTime }
-						limit = { limit }
-						periods={ periods }
-					/>
-					<Printer />
-				</Actions>
+				<Limit
+					setLimit={(l) => setLimit(l)}
+					limit={ limit }
+				/>
+
 				<Ticket
 					journey={ getCurrent() }
 				/>
+
 			</PontoBox>
 		</Container>
 	);

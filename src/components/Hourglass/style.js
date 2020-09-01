@@ -8,9 +8,8 @@ export const Container = styled.div`
 		flex-direction: row;
 	}
 
-	width: 100%;
-
 	margin-top: 15px;
+	width: 100%;
 
 	>div {
 		width: 100%;
