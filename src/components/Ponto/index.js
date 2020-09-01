@@ -42,6 +42,8 @@ function Ponto(){
 	};
 
 	const finishPeriod = () => {
+		var currentPeriod = periods.slice(-1)[0];
+		if (currentPeriod[1] == null) stopPeriod();
 
 		setCurrent(periods);
 		setPeriods([]);

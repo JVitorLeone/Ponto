@@ -4,7 +4,7 @@ import styled, {keyframes} from 'styled-components';
 
 export const Printer = styled.div`
 	position: relative;
-	width: 320px;
+	width: 300px;
 
 	border: 12px solid var(--main-dark);
 	border-bottom: 4px solid var(--sec-dark);
@@ -31,11 +31,10 @@ export const Wrapper = styled.div`
 
 export const Container = styled.div`
 	position: absolute;
-	left: calc(50% - 150px);
 	display: flex;
 	flex-direction: column;
 
-	width: 300px;
+	width: 100%;
 
 	font-family: 'Inconsolata', monospace;
 
