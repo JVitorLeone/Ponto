@@ -9,7 +9,6 @@ import {
 import Context from '../../GlobalContext';
 import {Watch} from '../Watch';
 import {ButtonTray} from '../ButtonTray';
-import {Limit} from '../Limit';
 import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
 
@@ -67,6 +66,8 @@ function Ponto(){
 					start={ () => startPeriod() }
 					stop={ () => stopPeriod() }
 					finish={ () => finishPeriod() }
+					setLimit={(l) => setLimit(l)}
+					limit={ limit }
 				/>
 
 				<Hourglass
@@ -74,11 +75,6 @@ function Ponto(){
 					currentTime={ currentTime }
 					limit = { limit }
 					periods={ periods }
-				/>
-
-				<Limit
-					setLimit={(l) => setLimit(l)}
-					limit={ limit }
 				/>
 
 				<Ticket
