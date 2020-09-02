@@ -1,4 +1,5 @@
 import React, {useState, useContext} from 'react';
+import {Period} from '../../models';
 
 import {
 	Container,
@@ -27,7 +28,7 @@ function Ponto(){
 		var snapShot = periods.slice();
 		var currentPeriod = snapShot.slice(-1)[0];
 
-		currentPeriod[1] = currentTime;
+		currentPeriod.finish = currentTime;
 
 		setPeriods(snapShot);
 		setActive(false);
@@ -36,14 +37,14 @@ function Ponto(){
 	const startPeriod = () => {
 		setPeriods([
 			...periods,
-			[currentTime, null]
+			Period(currentTime, null)
 		]);
 		setActive(true);
 	};
 
 	const finishPeriod = () => {
 		var currentPeriod = periods.slice(-1)[0];
-		if (currentPeriod[1] == null) stopPeriod();
+		if (currentPeriod.finish == null) stopPeriod();
 
 		setCurrent(periods);
 		setPeriods([]);

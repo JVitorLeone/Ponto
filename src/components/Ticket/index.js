@@ -31,15 +31,15 @@ function Ticket({journey}){
 
 	const renderPeriods = periods && periods.map((period, key)=> (
 		<Period key={key}>
-			<span>{ getHourString(period[0]) }</span>
-			<span>{ getHourString(period[1]) }</span>
+			<span>{ getHourString(period.start) }</span>
+			<span>{ getHourString(period.finish) }</span>
 		</Period>
 	));
 
 	const totalTime = () => {
 		var total = 0;
 		for (var period of periods){
-			total += period[1].getTime() - period[0].getTime();
+			total += period.finish.getTime() - period.start.getTime();
 		}
 		return total;
 	};

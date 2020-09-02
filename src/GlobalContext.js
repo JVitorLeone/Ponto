@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-
-
+import {Journey} from './models';
 
 const Context = React.createContext({
 	setPeriod: () => {}
@@ -13,15 +12,11 @@ export function GlobalContext({ children }) {
 	const getCurrent = () => currentJourney;
 
 	const setCurrent = (p) => {
-		var newJourney = {
-			date: new Date(),
-			periods: p
-		};
-
+		var newJourney = Journey(new Date(), p);
 		setCurrenJourney(newJourney);
 	};
 
-	const [journeys, setJourneys] = useState([currentJourney]);
+	const [journeys, setJourneys] = useState([]);
 
 	const addJourney = () => {
 		setJourneys([
