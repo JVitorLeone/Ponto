@@ -18,7 +18,7 @@ function Ponto(){
 
 	const [currentTime, setCurrentTime] = useState(new Date());
 
-	const [limit, setLimit] = useState(5000000);
+	const [limit, setLimit] = useState(31680500);
 
 	const [periods, setPeriods] = useState([]);
 
