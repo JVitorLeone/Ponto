@@ -6,7 +6,8 @@ import {
 	Title,
 	Row,
 	TimeInput,
-	Save
+	Save,
+	Divisor
 } from './style';
 
 /*
@@ -44,8 +45,9 @@ function Settings({limit, setLimit}){
 					value={ values.limit }
 				/>
 			</Row>
+			<Divisor/>
 			<Row>
-				Tempo min. de intervalo:
+				Tempo mínimo de intervalo:
 				<TimeInput
 					id="max_pause"
 					type="time"

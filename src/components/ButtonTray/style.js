@@ -22,7 +22,7 @@ export const Button = styled.button`
 	border: none;
 	padding: 8px 16px;
 
-	background-color: inherit;
+	background-color: var(--ter-dark);
 	color: var(--main-light);
 
 	border: 1px solid rgba(0,0,0,.2);
@@ -42,7 +42,6 @@ export const Button = styled.button`
 `;
 
 export const Wrapper = styled.div`
-	position: relative;
 	display: flex;
 	flex-direction: column;
 
@@ -63,7 +62,7 @@ export const SettingsButton = styled.button`
 	border: none;
 	padding: 3px 3px;
 
-	background-color: ${props => props.isOpen ? `var(--main-dark)` : `inherit`};
+	background-color: ${props => props.isOpen ? `var(--main-dark)` : `var(--ter-dark);`};
 	color: var(--main-light);
 
 	border: 1px solid rgba(0,0,0,.2);

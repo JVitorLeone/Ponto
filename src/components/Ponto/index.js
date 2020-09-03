@@ -3,7 +3,8 @@ import {Period} from '../../models';
 
 import {
 	Container,
-	PontoBox
+	PontoBox,
+	Row
 } from './style';
 
 import Context from '../../GlobalContext';
@@ -53,10 +54,22 @@ function Ponto(){
 	return (
 		<Container>
 			<PontoBox>
+				<Row>
+					<Watch
+						time={ currentTime }
+						setTime={(t) => setCurrentTime(t)}
+					/>
 
-				<Watch
-					time={ currentTime }
-					setTime={(t) => setCurrentTime(t)}
+					<Ticket
+						journey={ getCurrent() }
+					/>
+				</Row>
+
+				<Hourglass
+					isActive={ active }
+					currentTime={ currentTime }
+					limit = { limit }
+					periods={ periods }
 				/>
 
 				<ButtonTray
@@ -68,17 +81,6 @@ function Ponto(){
 					finish={ () => finishPeriod() }
 					setLimit={(l) => setLimit(l)}
 					limit={ limit }
-				/>
-
-				<Hourglass
-					isActive={ active }
-					currentTime={ currentTime }
-					limit = { limit }
-					periods={ periods }
-				/>
-
-				<Ticket
-					journey={ getCurrent() }
 				/>
 
 			</PontoBox>

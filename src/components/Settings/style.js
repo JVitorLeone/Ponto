@@ -35,8 +35,12 @@ export const Row = styled.div`
 
 export const TimeInput = styled.input`
 	width: 100px;
-
+	line-height: 35px;
 	margin-left: 10px;
+
+	@media (min-width: 500px) {
+		line-height: 28px;
+	}
 `;
 
 export const Save = styled.button`
@@ -64,4 +68,12 @@ export const Save = styled.button`
 		vertical-align: middle;
 		margin: 0 5px;
 	}
+`;
+
+export const Divisor = styled.hr`
+	width: 99%;
+	margin: 5px;
+
+	border: none;
+	border-top: 1px solid rgba(255,255,255,.1);
 `;

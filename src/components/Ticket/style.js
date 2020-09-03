@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Printer = styled.div`
 	position: relative;
-	width: 300px;
+	width: 90%;
 
 	border: 12px solid var(--main-dark);
 	border-bottom: 4px solid var(--sec-dark);

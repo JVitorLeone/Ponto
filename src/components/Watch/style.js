@@ -16,3 +16,25 @@ export const Container = styled.div`
 		font-size: 1.5rem;
 	}
 `;
+
+export const Row = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	position: relative;
+
+	letter-spacing: 3px;
+
+	font-weight: bold;
+	font-size: 30px;
+
+
+	&:before {
+		content: "${props => props.desc}";
+		color: rgba(255,255,255,.5);
+		font-size: small;
+		position: absolute;
+		left: 15px;
+		top: 10px;
+	}
+`;
