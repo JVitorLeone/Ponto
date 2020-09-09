@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
 	body {
 		/* font-family: 'Oswald', sans-serif; */
 		font-family: 'Roboto', sans-serif;
-		min-height: 100vh;
+		height: 100%;
 	}
 
 	@media only screen and (max-width: 580px) {

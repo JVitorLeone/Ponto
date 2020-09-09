@@ -1,17 +1,15 @@
-import styled, {keyframes} from 'styled-components';
-
-
+import styled from 'styled-components';
 
 export const Printer = styled.div`
 	position: relative;
-	width: 300px;
+	width: 90%;
 
 	border: 12px solid var(--main-dark);
 	border-bottom: 4px solid var(--sec-dark);
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
 
-	margin: 10px auto 0;
+	margin: 15px auto 0;
 
 	box-shadow: 0 2px 3px rgba(0,0,0,.5);
 `;
@@ -62,6 +60,8 @@ export const Container = styled.div`
 		}
 	};
 	z-index: 0;
+
+	box-shadow: inset 0 2px 3px rgba(0,0,0,.5);
 `;
 
 

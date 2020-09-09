@@ -3,7 +3,8 @@ import React from 'react';
 const defaultWidth = "24px";
 const defaultColor = "inherit";
 
-function DefaultSVG({children}, props){
+function DefaultSVG(props){
+
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +13,7 @@ function DefaultSVG({children}, props){
 			width={ props.width || defaultWidth }
 			color={ props.color || defaultColor }
 		>
-			{ children }
+			{ props.children }
 		</svg>
 	);
 }
@@ -78,6 +79,30 @@ export function BookMarkIcon(props){
 	return (
 		<DefaultSVG { ...props }>
 			<path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+		</DefaultSVG>
+	)
+}
+
+export function SettingsIcon(props){
+	return (
+		<DefaultSVG { ...props }>
+			<path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />0
+		</DefaultSVG>
+	)
+}
+
+export function ChevronsDownIcon(props){
+	return (
+		<DefaultSVG { ...props }>
+			<path fillRule="evenodd" d="M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+		</DefaultSVG>
+	)
+}
+
+export function ChevronsUpIcon(props){
+	return (
+		<DefaultSVG { ...props }>
+		 	<path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
 		</DefaultSVG>
 	)
 }

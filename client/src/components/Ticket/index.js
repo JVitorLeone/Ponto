@@ -53,31 +53,31 @@ function Ticket({journey}){
 
 	return (
 		<>
-		<Printer title="Retire seu comprovante aqui">
 			{ print && (
-				<Wrapper height={ height + "px" }>
-					<Container opacity={ opacity }>
-						<Title>Registro de Horas</Title>
-						<p>Data: { getDateString(date) }</p>
-						<Periods>
-							<span>Periodos({periods.length}): </span>
-							<span>
-								<Period>
-									<span>Início</span>
-									<span>Fim</span>
-								</Period>
-								{renderPeriods}
-							</span>
-						</Periods>
-						<p>Total: { getTimeToHourString(totalTime()) }</p>
-						<Button
-							onClick={ () => saveTicket() }>
-							Arquivar
-						</Button>
-					</Container>
-				</Wrapper>
+				<Printer title="Retire seu comprovante aqui">
+					<Wrapper height={ height + "px" }>
+						<Container opacity={ opacity }>
+							<Title>Registro de Horas</Title>
+							<p>Data: { getDateString(date) }</p>
+							<Periods>
+								<span>Periodos({periods.length}): </span>
+								<span>
+									<Period>
+										<span>Início</span>
+										<span>Fim</span>
+									</Period>
+									{renderPeriods}
+								</span>
+							</Periods>
+							<p>Total: { getTimeToHourString(totalTime()) }</p>
+							<Button
+								onClick={ () => saveTicket() }>
+								Arquivar
+							</Button>
+						</Container>
+					</Wrapper>
+				</Printer>
 			)}
-		</Printer>
 		</>
 	);
 }

@@ -3,13 +3,13 @@ import {Period} from '../../models';
 
 import {
 	Container,
-	PontoBox
+	PontoBox,
+	Row
 } from './style';
 
 import Context from '../../GlobalContext';
 import {Watch} from '../Watch';
 import {ButtonTray} from '../ButtonTray';
-import {Limit} from '../Limit';
 import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
 
@@ -51,13 +51,29 @@ function Ponto(){
 		setActive(false);
 	};
 
+	var finishedJourney = getCurrent();
+
 	return (
 		<Container>
 			<PontoBox>
+				<Row>
+					<Watch
+						time={ currentTime }
+						setTime={(t) => setCurrentTime(t)}
+					/>
+					{ (finishedJourney !== {}) && (
+						<Ticket
+							journey={ getCurrent() }
+						/>
+					)}
 
-				<Watch
-					time={ currentTime }
-					setTime={(t) => setCurrentTime(t)}
+				</Row>
+
+				<Hourglass
+					isActive={ active }
+					currentTime={ currentTime }
+					limit = { limit }
+					periods={ periods }
 				/>
 
 				<ButtonTray
@@ -67,22 +83,8 @@ function Ponto(){
 					start={ () => startPeriod() }
 					stop={ () => stopPeriod() }
 					finish={ () => finishPeriod() }
-				/>
-
-				<Hourglass
-					isActive={ active }
-					currentTime={ currentTime }
-					limit = { limit }
-					periods={ periods }
-				/>
-
-				<Limit
 					setLimit={(l) => setLimit(l)}
 					limit={ limit }
-				/>
-
-				<Ticket
-					journey={ getCurrent() }
 				/>
 
 			</PontoBox>

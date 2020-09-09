@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
+import {getDateString, getHourString} from '../../utils/DateUtils';
 
-import {Container} from './style';
+import {Container, Row} from './style';
 
 const refreshDelay = 60 * 1000;
 
@@ -17,7 +18,8 @@ function Watch({ time, setTime }) {
 
 	return (
 		<Container>
-			<h1>{ time.toLocaleString() }</h1>
+			<Row desc="Dia">{ getDateString(time) }</Row>
+			<Row desc="Hora">{ getHourString(time) }</Row>
 		</Container>
 	);
 }

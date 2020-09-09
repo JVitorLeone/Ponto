@@ -7,24 +7,32 @@ export const Container = styled.div`
 	background-color: var(--main-dark);
 
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 
 	margin: 0 auto;
-	padding-top: 50px;
+	padding: 3px;
 `;
 
 export const PontoBox = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-between;
 
-	width: min-content;
-	height: max-content;
+	width: 100%;
+	min-width: 300px;
 
-	padding: 25px;
+	padding: 25px 15px;
 
 	background-color: var(--sec-dark);
 	border-radius: 5px;
+
+	@media (min-width: 500px) {
+		width: 498px;
+		height: min-content;
+
+		padding: 25px;
+	}
 `;
 
 export const Actions = styled.div`
@@ -32,4 +40,8 @@ export const Actions = styled.div`
 	height: 100%;
 	background-color: var(--sec-dark);
 	z-index: 1;
+`;
+
+export const Row = styled.div`
+	width: 100%;
 `;
