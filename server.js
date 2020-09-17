@@ -1,42 +1,60 @@
-const http = require('http');
+const express = require('express');
+const cors = require('cors');
+const app = express();
 
-const hostname = '127.0.0.1';
 const port = 5000;
 
-const server = http.createServer();
+// Allow CORS
+app.use(cors({origin: 'http://localhost:3000'}));
 
-server.on('request', (req, res) => {
+// Body parser
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-	// Database
-	let db = new sqlite3.Database('./db/ponto.db', (err) => {
-		if (err) {
-			console.error(err.message);
-		}
-	});
+app.post('/user', (req, res) => {
+	let data;
 
-	// User
-	if (req.url === '/user') {
-		if (req.method == "POST") {
-			// Request body
-			let data;
-			req.on('data', chunk => {
-				data = chunk;
-			});
-			req.on('end', () => {
-				data = JSON.parse(data);
+	data = req.body;
 
-			});
+	console.log(data)
 
-			res.statusCode = 200;
-			res.setHeader('Content-Type', 'application/json');
-			res.end('data');
-		}
-	}
-
-	// Close Database conection
-	db.close();
+	res.statusCode = 200;
+	res.setHeader('Content-Type', 'application/json');
+	res.send({body: data});
 });
 
-server.listen(port, hostname, () => {
-  	console.log(`Server running at http://${hostname}:${port}/`);
+const JourneyDAO = require('./db/JourneyDAO');
+app.post('/journey', (req, res) => {
+	let data;
+
+	data = req.body;
+
+	// convert timezone
+	data.date = new Date(data.date);
+
+	JourneyDAO.insert(data);
+
+	res.statusCode = 200;
+	res.setHeader('Content-Type', 'application/json');
+	res.send(data);
+});
+
+app.get('/journey', (req, res) => {
+	let data;
+
+	res.statusCode = 200;
+	res.setHeader('Content-Type', 'application/json');
+	
+	data = req.body;
+
+	JourneyDAO.getUserJourneys(1, journeys => {
+		console.log(journeys);
+		return res.send(journeys);
+	});
+	
+	
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
 });

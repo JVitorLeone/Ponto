@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Period} from '../../models';
 
 import {
@@ -22,16 +22,18 @@ function Ponto(){
 
 	const [periods, setPeriods] = useState([]);
 
+	const [printTicket, setPrintTicket] = useState(false);
+
 	const [active, setActive] = useState(false);
 
 	const stopPeriod = () => {
 		var snapShot = periods.slice();
 		var currentPeriod = snapShot.slice(-1)[0];
-
 		currentPeriod.finish = currentTime;
 
 		setPeriods(snapShot);
 		setActive(false);
+		setCurrent(periods);
 	};
 
 	const startPeriod = () => {
@@ -40,18 +42,18 @@ function Ponto(){
 			Period(currentTime, null)
 		]);
 		setActive(true);
+		setCurrent(periods);
 	};
 
 	const finishPeriod = () => {
 		var currentPeriod = periods.slice(-1)[0];
 		if (currentPeriod.finish == null) stopPeriod();
 
-		setCurrent(periods);
+		setPrintTicket(true);
 		setPeriods([]);
 		setActive(false);
+		setCurrent(periods);
 	};
-
-	var finishedJourney = getCurrent();
 
 	return (
 		<Container>
@@ -61,9 +63,10 @@ function Ponto(){
 						time={ currentTime }
 						setTime={(t) => setCurrentTime(t)}
 					/>
-					{ (finishedJourney !== {}) && (
+					{ printTicket && (
 						<Ticket
 							journey={ getCurrent() }
+							close={ () => setPrintTicket(false) }
 						/>
 					)}
 
