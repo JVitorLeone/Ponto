@@ -1,4 +1,5 @@
-export const Journey = (date, periods) => { return {
+export const Journey = (id, date, periods) => { return {
+	id: id,
 	date: date,
 	periods: periods || []
 }};

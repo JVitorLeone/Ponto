@@ -18,8 +18,8 @@ function Hourglass(props){
 
 	useEffect(() => {
 		function openPeriodHours() {
-			let start = periods.slice(-1)[0].start.getTime();
-			let end = currentTime.getTime();
+			let start = periods.slice(-1)[0].start;
+			let end = currentTime;
 			return Math.round(end - start);
 		}
 
@@ -36,8 +36,8 @@ function Hourglass(props){
 
 	useEffect(() => {
 		function closedPeriodHours(period) {
-			let start = period.start.getTime();
-			let end = period.finish.getTime();
+			let start = period.start;
+			let end = period.finish;
 			return Math.round(end - start);
 		}
 

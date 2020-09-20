@@ -1,5 +1,4 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {Period} from '../../models';
 
 import {
 	Container,
@@ -14,13 +13,12 @@ import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
 
 function Ponto(){
-	const {getCurrent, setCurrent} = useContext(Context);
+	const {currentJourney, setCurrent} = useContext(Context);
+	var periods = currentJourney? currentJourney.periods : [];
 
-	const [currentTime, setCurrentTime] = useState(new Date());
+	const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
 	const [limit, setLimit] = useState(31680500);
-
-	const [periods, setPeriods] = useState([]);
 
 	const [printTicket, setPrintTicket] = useState(false);
 
@@ -31,18 +29,19 @@ function Ponto(){
 		var currentPeriod = snapShot.slice(-1)[0];
 		currentPeriod.finish = currentTime;
 
-		setPeriods(snapShot);
 		setActive(false);
-		setCurrent(periods);
+		setCurrent({periods: snapShot});
 	};
 
 	const startPeriod = () => {
-		setPeriods([
-			...periods,
-			Period(currentTime, null)
-		]);
 		setActive(true);
-		setCurrent(periods);
+		setCurrent({periods: [
+			...periods,
+			{
+				start: currentTime,
+				finish: null
+			}
+		]});
 	};
 
 	const finishPeriod = () => {
@@ -50,9 +49,9 @@ function Ponto(){
 		if (currentPeriod.finish == null) stopPeriod();
 
 		setPrintTicket(true);
-		setPeriods([]);
 		setActive(false);
-		setCurrent(periods);
+		// setCurrent({periods}); TODO "finalizar" a jornada
+
 	};
 
 	return (
@@ -65,7 +64,7 @@ function Ponto(){
 					/>
 					{ printTicket && (
 						<Ticket
-							journey={ getCurrent() }
+							journey={ currentJourney }
 							close={ () => setPrintTicket(false) }
 						/>
 					)}

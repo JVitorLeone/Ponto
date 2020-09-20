@@ -8,7 +8,7 @@ const refreshDelay = 60 * 1000;
 function Watch({ time, setTime }) {
 
 	function tick() {
-		let current = new Date();
+		let current = new Date().getTime();
 		if (time !== current) setTime(current);
 	};
 

@@ -12,9 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.post('/user', (req, res) => {
-	let data;
-
-	data = req.body;
+	let data = req.body;
 
 	console.log(data)
 
@@ -23,36 +21,39 @@ app.post('/user', (req, res) => {
 	res.send({body: data});
 });
 
-const JourneyDAO = require('./db/JourneyDAO');
 app.post('/journey', (req, res) => {
-	let data;
-
-	data = req.body;
-
-	// convert timezone
-	data.date = new Date(data.date);
-
-	JourneyDAO.insert(data);
+	const JourneyDAO = require('./db/JourneyDAO');
 
 	res.statusCode = 200;
 	res.setHeader('Content-Type', 'application/json');
-	res.send(data);
+
+	let journey = req.body;
+
+	if (journey.user_id) {
+		JourneyDAO.insert(journey, newJourney => {
+			console.log(newJourney);
+			res.send(newJourney);
+		});
+	}
 });
 
 app.get('/journey', (req, res) => {
-	let data;
+	const JourneyDAO = require('./db/JourneyDAO');
 
 	res.statusCode = 200;
 	res.setHeader('Content-Type', 'application/json');
-	
+
 	data = req.body;
 
 	JourneyDAO.getUserJourneys(1, journeys => {
 		console.log(journeys);
-		return res.send(journeys);
+		if (journeys) {
+			res.send(journeys);
+		} else {
+			res.send({erro: "algo deu errado, desculpe"});
+		}
 	});
-	
-	
+
 });
 
 app.listen(port, () => {

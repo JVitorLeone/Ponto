@@ -20,9 +20,9 @@ export function getTime(sHours) {
 }
 
 export function getDateString(date) {
-	return date.toLocaleString().slice(0,10);
+	return new Date(date).toLocaleString().slice(0,10);
 }
 
 export function getHourString(date) {
-	return date.toLocaleString().slice(11);
+	return new Date(date).toLocaleString().slice(11);
 }
