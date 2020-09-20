@@ -9,6 +9,7 @@ export function GlobalContext({ children }) {
 	const [userId, setUserId] = useState(1001);
 
 	const [currentJourney, setCurrenJourney] = useState({
+		upToDate: true,
 		user_id: undefined,
 		id: undefined,
 		date: undefined,
@@ -36,23 +37,27 @@ export function GlobalContext({ children }) {
 					console.log("Erro: " + data.erro);
 				} else {
 					console.log(data);
-					setCurrenJourney(data);
+					setCurrenJourney({
+						...data,
+						upToDate: true
+					});
 				}
 			} catch(error)  {
 				console.log("Erro: " + error);
 			}
 		}
 
-		requestPeriodUpdate(currentJourney);
+		if (!currentJourney.upToDate) requestPeriodUpdate(currentJourney);
 	},[currentJourney]);
 
 	const setCurrent = (journey) => {
-		var user_id = userId,
+		var upToDate = false,
+			user_id = userId,
 			date = journey.date || new Date().getTime(),
 			id = journey.id || currentJourney.id,
 			periods = journey.periods || [];
 
-		setCurrenJourney({user_id, id, date, periods});
+		setCurrenJourney({upToDate, user_id, id, date, periods});
 	};
 
 	const [journeys, setJourneys] = useState([]);
