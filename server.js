@@ -30,7 +30,7 @@ app.post('/journey', (req, res) => {
 	let journey = req.body;
 
 	if (journey.user_id) {
-		JourneyDAO.insert(journey, newJourney => {
+		JourneyDAO.upsert(journey, newJourney => {
 			console.log(newJourney);
 			res.send(newJourney);
 		});
@@ -43,9 +43,9 @@ app.get('/journey', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Content-Type', 'application/json');
 
-	data = req.body;
+	var {user_id} = req.query;	
 
-	JourneyDAO.getUserJourneys(1, journeys => {
+	JourneyDAO.getUserJourneys(user_id, journeys => {
 		console.log(journeys);
 		if (journeys) {
 			res.send(journeys);

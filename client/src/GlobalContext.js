@@ -4,17 +4,19 @@ const Context = React.createContext({
 	setPeriod: () => {}
 });
 
+const initJourney = {
+	upToDate: true,
+	user_id: undefined,
+	id: undefined,
+	date: undefined,
+	periods: []
+};
+
 export function GlobalContext({ children }) {
 
 	const [userId, setUserId] = useState(1001);
 
-	const [currentJourney, setCurrenJourney] = useState({
-		upToDate: true,
-		user_id: undefined,
-		id: undefined,
-		date: undefined,
-		periods: []
-	});
+	const [currentJourney, setCurrenJourney] = useState(initJourney);
 
 	useEffect(() => {
 		const remoteJourneyUpdate = async(journey) => {
@@ -64,7 +66,7 @@ export function GlobalContext({ children }) {
 	const [journeys, setJourneys] = useState([]);
 
 	const addJourney = () => {
-		localStorage.addJourney(currentJourney);
+		setCurrenJourney(initJourney);
 
 		setJourneys([
 			...journeys,

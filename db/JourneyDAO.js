@@ -14,7 +14,7 @@ const insertJourney = (journey, cb) => {
 	let {user_id, date, periods, finished} = journey;
 	let db = newConnection();
 
-	let sql = `INSERT INTO journey (user_id, date, finished) VALUES (?,?); `;
+	let sql = `INSERT INTO journey (user_id, date, finished) VALUES (?,?,?); `;
 
 	db.run(sql, [user_id, date, finished], function(err){
 		if (err) {
@@ -53,6 +53,24 @@ const insertPeriods = (periods, journey_id, cb) => {
 	db.close();
 };
 
+const updateJourney = (journey, cb) => {
+	var db = newConnection();
+
+	var {id, finished, periods} = journey;
+
+	sql = ` UPDATE journey SET finished = ? WHERE id = ?; `;
+
+	db.run(sql, [finished, id], function(err){
+		if (err) {
+			return  cb({err: err.message});
+		}
+
+		return updatePeriods(journey, cb);
+	});
+
+	db.close();
+};
+
 const updatePeriods = (journey, cb) => {
 	var db = newConnection();
 
@@ -76,21 +94,17 @@ const updatePeriods = (journey, cb) => {
 			return  cb({err: err.message});
 		}
 
-		if (newPeriods.length) {
-			return insertPeriods(newPeriods, id, cb);
-		} else {
-			return getJourney(id, cb);
-		}
+		return newPeriods.length? insertPeriods(newPeriods, id, cb) : getJourney(id, cb);
 	});
 
 	db.close();
-}
+};
 
 const getJourney = (id, cb) => {
 	var db = newConnection();
 
 	var sql = `	SELECT
-					journey.user_id,
+					journey.user_id, journey.finished,
 					journey.id, journey.date,
 					periods.start, periods.end,
 					periods.id as period_id
@@ -104,13 +118,37 @@ const getJourney = (id, cb) => {
 			return  cb({err: err.message});
 		}
 
-		return cb(convertJourneyDataSet(rows)[0]);
+		return cb(convertJourneyRow(rows)[0]);
 	});
 
 	db.close();
-}
+};
 
-function convertJourneyDataSet(rows) {
+const getUserJourneys = (user_id, cb) => {
+	let db = newConnection();
+
+	var sql = `	SELECT
+					journey.user_id, journey.finished,
+					journey.id, journey.date,
+					periods.start, periods.end,
+					periods.id as period_id
+				FROM journey
+					LEFT JOIN periods
+						ON periods.journey_id = journey.id 
+				WHERE user_id = ? `;
+
+	db.all(sql, [user_id], (err, rows) => {
+		if (err) {
+			return cb({err: err.message});
+		}
+
+		return cb(convertJourneyRow(rows));
+	});
+
+	db.close();
+};
+
+function convertJourneyRow(rows) {
 	var currId, currJourney, journeys = [];
 
 	for (var row of rows) {
@@ -120,6 +158,7 @@ function convertJourneyDataSet(rows) {
 				journeys.push({
 					user_id: row.user_id,
 					id: row.id,
+					finished: !!row.finished,
 					date: row.date,
 					periods: []
 			})-1];
@@ -135,47 +174,25 @@ function convertJourneyDataSet(rows) {
 	}
 
 	return journeys;
-}
+};
 
 module.exports = {
-	insert: (journey, cb) => {
+	upsert: (journey, cb) => {
 		try {
 			if (!journey.id) {
 				insertJourney(journey, cb);
 			} else {
-				updatePeriods(journey, cb);
+				updateJourney(journey, cb);
 			}
-		} catch (error) {
+		} catch (err) {
 			return cb({err: err.message});
 		}
 	},
 	getUserJourneys: (user_id, cb) => {
-		let db = newConnection();
-
 		try {
-			var journeys = [],
-				sql = `	SELECT
-							journey.user_id,
-							journey.id, journey.date,
-							periods.start, periods.end,
-							periods.id as period_id
-						FROM journey
-							LEFT JOIN periods
-								ON periods.journey_id = journey.id `;
-
-			db.all(sql, [], (err, rows) => {
-				if (err) {
-					return console.error(err.message);
-				}
-
-				journeys = convertJourneyDataSet(rows)
-
-				return cb(journeys);
-			});
-		} catch (error) {
-			console.log("Erro: " + error);
-		} finally {
-			db.close();
+			getUserJourneys(user_id, cb);
+		} catch (err) {
+			return cb({err: err.message});
 		}
 	},
 };

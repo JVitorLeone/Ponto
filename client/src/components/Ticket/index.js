@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {
 	getDateString,
 	getHourString,
@@ -14,20 +14,12 @@ import {
 
 import Context from '../../GlobalContext';
 
-function Ticket({journey}){
+function Ticket(props){
 
-	const {addJourney} = useContext(Context);
-	const {date, periods} = journey;
-	const [print, setPrint] = useState(false);
+	const {currentJourney} = useContext(Context);
+	const {closeJourney} = props;
+	const {date, periods} = currentJourney;
 	const [opacity, setOpacity] = useState(1);
-
-	useEffect(() => {
-		setPrint(date !== undefined);
-
-		return function opacity() {
-			setOpacity(date ? 1 : 0);
-		}
-	},[journey]);
 
 	const renderPeriods = periods && periods.map((period, key)=> (
 		<Period key={key}>
@@ -39,46 +31,37 @@ function Ticket({journey}){
 	const totalTime = () => {
 		var total = 0;
 		for (var period of periods){
-			total += period.finish.getTime() - period.start.getTime();
+			total += period.finish - period.start;
 		}
 		return total;
 	};
 
-	const saveTicket = () => {
-		setPrint(false);
-		addJourney();
-	}
-
 	var height = periods ? ( 182 + periods.length * 17 ) : 0;
 
 	return (
-		<>
-			{ print && (
-				<Printer title="Retire seu comprovante aqui">
-					<Wrapper height={ height + "px" }>
-						<Container opacity={ opacity }>
-							<Title>Registro de Horas</Title>
-							<p>Data: { getDateString(date) }</p>
-							<Periods>
-								<span>Periodos({periods.length}): </span>
-								<span>
-									<Period>
-										<span>Início</span>
-										<span>Fim</span>
-									</Period>
-									{renderPeriods}
-								</span>
-							</Periods>
-							<p>Total: { getTimeToHourString(totalTime()) }</p>
-							<Button
-								onClick={ () => saveTicket() }>
-								Arquivar
-							</Button>
-						</Container>
-					</Wrapper>
-				</Printer>
-			)}
-		</>
+		<Printer title="Retire seu comprovante aqui">
+			<Wrapper height={ height + "px" }>
+				<Container opacity={ opacity }>
+					<Title>Registro de Horas</Title>
+					<p>Data: { getDateString(date) }</p>
+					<Periods>
+						<span>Periodos({periods.length}): </span>
+						<span>
+							<Period>
+								<span>Início</span>
+								<span>Fim</span>
+							</Period>
+							{renderPeriods}
+						</span>
+					</Periods>
+					<p>Total: { getTimeToHourString(totalTime()) }</p>
+					<Button
+						onClick={ () => closeJourney() }>
+						Arquivar
+					</Button>
+				</Container>
+			</Wrapper>
+		</Printer>
 	);
 }
 

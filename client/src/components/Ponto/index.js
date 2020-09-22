@@ -13,7 +13,7 @@ import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
 
 function Ponto(){
-	const {currentJourney, setJourney} = useContext(Context);
+	const {currentJourney, setJourney, addJourney} = useContext(Context);
 	var periods = currentJourney? currentJourney.periods : [];
 
 	const [currentTime, setCurrentTime] = useState(new Date().getTime());
@@ -30,7 +30,9 @@ function Ponto(){
 		currentPeriod.finish = currentTime;
 
 		setActive(false);
-		setJourney({periods: snapShot});
+		setJourney({
+			periods: snapShot
+		});
 	};
 
 	const startPeriod = () => {
@@ -48,13 +50,16 @@ function Ponto(){
 
 	const finishPeriod = () => {
 		var currentPeriod = periods.slice(-1)[0];
+
 		if (currentPeriod.finish == null) stopPeriod();
 
 		setPrintTicket(true);
-		setActive(false);
-		// setJourney({periods}); TODO "finalizar" a jornada
-
 	};
+
+	const closeJourney = () => {
+		addJourney(currentJourney);
+		setPrintTicket(false);
+	}
 
 	return (
 		<Container>
@@ -66,8 +71,7 @@ function Ponto(){
 					/>
 					{ printTicket && (
 						<Ticket
-							journey={ currentJourney }
-							close={ () => setPrintTicket(false) }
+							closeJourney={ () => closeJourney() }
 						/>
 					)}
 
