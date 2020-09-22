@@ -13,7 +13,7 @@ import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
 
 function Ponto(){
-	const {currentJourney, setCurrent} = useContext(Context);
+	const {currentJourney, setJourney} = useContext(Context);
 	var periods = currentJourney? currentJourney.periods : [];
 
 	const [currentTime, setCurrentTime] = useState(new Date().getTime());
@@ -30,18 +30,20 @@ function Ponto(){
 		currentPeriod.finish = currentTime;
 
 		setActive(false);
-		setCurrent({periods: snapShot});
+		setJourney({periods: snapShot});
 	};
 
 	const startPeriod = () => {
 		setActive(true);
-		setCurrent({periods: [
-			...periods,
-			{
-				start: currentTime,
-				finish: null
-			}
-		]});
+		setJourney({
+			periods: [
+				...periods,
+				{
+					start: currentTime,
+					finish: null
+				}
+			]
+		});	
 	};
 
 	const finishPeriod = () => {
@@ -50,7 +52,7 @@ function Ponto(){
 
 		setPrintTicket(true);
 		setActive(false);
-		// setCurrent({periods}); TODO "finalizar" a jornada
+		// setJourney({periods}); TODO "finalizar" a jornada
 
 	};
 
@@ -60,7 +62,7 @@ function Ponto(){
 				<Row>
 					<Watch
 						time={ currentTime }
-						setTime={(t) => setCurrentTime(t)}
+						setTime={ (t) => setCurrentTime(t) }
 					/>
 					{ printTicket && (
 						<Ticket
@@ -85,7 +87,7 @@ function Ponto(){
 					start={ () => startPeriod() }
 					stop={ () => stopPeriod() }
 					finish={ () => finishPeriod() }
-					setLimit={(l) => setLimit(l)}
+					setLimit={ (l) => setLimit(l) }
 					limit={ limit }
 				/>
 

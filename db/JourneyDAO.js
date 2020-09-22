@@ -11,12 +11,12 @@ const newConnection = () => {
 
 // POST
 const insertJourney = (journey, cb) => {
-	let {user_id, date, periods} = journey;
+	let {user_id, date, periods, finished} = journey;
 	let db = newConnection();
 
-	let sql = `INSERT INTO journey (user_id, date) VALUES (?,?); `;
+	let sql = `INSERT INTO journey (user_id, date, finished) VALUES (?,?); `;
 
-	db.run(sql, [user_id, date], function(err){
+	db.run(sql, [user_id, date, finished], function(err){
 		if (err) {
 			return cb({err: err.message});
 		}

@@ -14,6 +14,7 @@ let create_journey = `
 		id INTEGER PRIMARY KEY,
 		user_id INTEGER,
 		date datetime,
+		finished BOOLEAN,
 		FOREIGN KEY (user_id)
       		REFERENCES user (id)
          		ON DELETE CASCADE

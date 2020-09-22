@@ -17,7 +17,7 @@ export function GlobalContext({ children }) {
 	});
 
 	useEffect(() => {
-		const requestPeriodUpdate = async(journey) => {
+		const remoteJourneyUpdate = async(journey) => {
 			const options = {
 				method: "POST",
 				headers: new Headers({'content-type': 'application/json'}),
@@ -47,17 +47,18 @@ export function GlobalContext({ children }) {
 			}
 		}
 
-		if (!currentJourney.upToDate) requestPeriodUpdate(currentJourney);
+		if (!currentJourney.upToDate) remoteJourneyUpdate(currentJourney);
 	},[currentJourney]);
 
-	const setCurrent = (journey) => {
-		var upToDate = false,
-			user_id = userId,
-			date = journey.date || new Date().getTime(),
-			id = journey.id || currentJourney.id,
-			periods = journey.periods || [];
-
-		setCurrenJourney({upToDate, user_id, id, date, periods});
+	const setJourney = (journey) => {
+		setCurrenJourney({
+			upToDate: false,
+			user_id: userId,
+			finished: journey.finished || false,
+			date: journey.date || new Date().getTime(),
+			id: journey.id || currentJourney.id,
+			periods: journey.periods || []
+		});
 	};
 
 	const [journeys, setJourneys] = useState([]);
@@ -73,7 +74,7 @@ export function GlobalContext({ children }) {
 
 	return (
 		<Context.Provider
-			value={{ currentJourney, setCurrent, addJourney }}>
+			value={{ currentJourney, setJourney, addJourney }}>
 			{ children }
 		</Context.Provider>
 	)
