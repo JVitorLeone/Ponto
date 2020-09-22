@@ -14,6 +14,8 @@ const initJourney = {
 
 export function GlobalContext({ children }) {
 
+	// TODO 
+	// Fazer login c/ google
 	const [userId, setUserId] = useState(1001);
 
 	const [currentJourney, setCurrenJourney] = useState(initJourney);
@@ -66,12 +68,12 @@ export function GlobalContext({ children }) {
 	const [journeys, setJourneys] = useState([]);
 
 	const addJourney = () => {
-		setCurrenJourney(initJourney);
-
 		setJourneys([
 			...journeys,
 			currentJourney
 		]);
+
+		setCurrenJourney(initJourney);
 	};
 
 	return (
