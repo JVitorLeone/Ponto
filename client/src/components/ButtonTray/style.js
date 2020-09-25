@@ -19,7 +19,6 @@ export const Row = styled.div`
 export const Button = styled.button`
 	flex: auto;
 
-	border: none;
 	padding: 8px 16px;
 
 	background-color: var(--ter-dark);

@@ -21,7 +21,8 @@ export const PontoBox = styled.div`
 
 	width: 100%;
 	min-width: 300px;
-
+	height: min-content;
+	
 	padding: 25px 15px;
 
 	background-color: var(--sec-dark);
@@ -29,8 +30,6 @@ export const PontoBox = styled.div`
 
 	@media (min-width: 500px) {
 		width: 498px;
-		height: min-content;
-
 		padding: 25px;
 	}
 `;

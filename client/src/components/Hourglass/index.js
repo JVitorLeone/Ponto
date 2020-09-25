@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {getTimeToHourString} from '../../utils/DateUtils'
+import {getTimeToHourString, getHourString} from '../../utils/DateUtils'
 
 import {
 	Container,
-	Total,
-	Remaining
+	Timer,
+	Period, 
+	Counter, 
+	Time, 
+	Periods
 } from './style';
+
+import {ChevronUpIcon, ChevronDownIcon} from '../../icons';
 
 function Hourglass(props){
 
@@ -67,20 +72,54 @@ function Hourglass(props){
 		}
 	},[durations]);
 
+	const [showPeriods, setShowPeriods] = useState(false);
+	let counter = 0;
+	const renderPeriods = periods.map((period, key) => {
+		var finish = period.finish !== null ? 
+			getHourString(period.finish)
+			: "--:--:--"
+		;
+		counter++;
+		return (
+			<Period key={key}>
+				<Counter>{counter}</Counter>
+				<Time>
+					<span>{getHourString(period.start)}</span>
+					<span>{finish}</span>
+				</Time>
+			</Period>
+		);
+	});
+
 	return (
 		<Container>
 			{ periods.length > 0 && (
 				<>
-					<Total>
+					<Timer bg='green'>
 						<p>horas trabalhadas</p>
 						{ getTimeToHourString(totalTime) }
-					</Total>
+					</Timer>
 
-					<Remaining>
+					<Timer bg='orange'>
 						<p>horas restantes</p>
 						{ getTimeToHourString(remainingTime) }
-					</Remaining>
+					</Timer>
 				</>
+			)}
+			{ renderPeriods.length > 0 && (
+				<Periods>
+					<p
+						onClick={ () => setShowPeriods(!showPeriods)}
+					>
+						Intervalos
+						{ showPeriods ? (
+							<ChevronUpIcon width="16px"/>
+						) : (
+							<ChevronDownIcon width="16px"/>
+						) }
+					</p>
+					{ showPeriods && renderPeriods }
+				</Periods>
 			)}
 		</Container>
 	)

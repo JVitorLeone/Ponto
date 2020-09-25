@@ -8,47 +8,95 @@ export const Container = styled.div`
 	width: 100%;
 
 	>div {
-		width: 100%;
-		height: 100%;
+		
+	}
+`;
 
-		border: none;
+export const Timer = styled.div`
+	background-color: ${props => 'var(--' + props.bg + ')'};
+
+	width: 100%;
+	height: 100%;
+
+	border: none;
+
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	letter-spacing: 5px;
+
+	padding: 0 0 4px 0;
+
+	animation: opacity .5s linear;
+	@keyframes opacity {
+		from { opacity:0 }
+		to { opacity:1 }
+	}
+
+	>p {
+		padding: 3px 0;
+		background-color: rgba(0,0,0,0.1);
+		font-size: small;
+		letter-spacing: initial;
+	}
+`;
+
+
+export const Periods = styled.div`
+	color: var(--main-light);
+
+	width: 100%;
+	margin: 10px auto;
+
+	border: 1px solid rgba(0,0,0,.2);
+
+	>p {
+		background-color: var(--ter-dark);
 
 		text-align: center;
-		font-size: 25px;
+		padding: 3px 0;
+
+		font-size: small;
 		font-weight: bold;
-		letter-spacing: 5px;
+		letter-spacing: initial;
+		cursor: pointer;
 
-		padding: 0 0 4px 0;
-
-		animation: opacity .5s linear;
-		@keyframes opacity {
-			from { opacity:0 }
-			to { opacity:1 }
-		}
-
-		>p {
-			padding: 3px 0;
-			background-color: rgba(0,0,0,0.1);
-			font-size: small;
-			letter-spacing: initial;
+		>svg {
+			float: right;
+			margin-right: 5px;
 		}
 	}
 `;
 
-export const Total = styled.div`
-	background-color: var(--green);
-`;
 
-export const Remaining = styled.div`
-	background-color: var(--orange);
-`;
-
-export const Limit = styled.span`
+export const Period = styled.div`
 	display: flex;
-	justify-content: end;
-	align-items: center;
+	justify-content: space-between;
 
-	padding: 6px 0;
+	background-color: var(--main-dark);
 
-	font-size: small;
+	>div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		font-size: 14px;
+	}
 `;
+
+export const Counter = styled.div`
+	width: 25px;
+`;
+
+export const Time = styled.div`
+	flex: auto;
+	padding: 2px 8px;
+
+	>span {
+		padding: 0px 15px;
+		width: 100%;
+		text-align: center;
+	}
+`;
+
+
