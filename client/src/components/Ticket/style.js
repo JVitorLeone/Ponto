@@ -14,13 +14,28 @@ export const Printer = styled.div`
 	box-shadow: 0 2px 3px rgba(0,0,0,.5);
 `;
 
+export const R = styled.div`
+	position: absolute;
+	top: 25px;
+
+	animation: scale .6s ease-in-out both;
+	@keyframes scale {
+		from { 
+			transform: scale(.6);	
+		}
+		to { 
+			transform: scale(1);
+		}
+	}
+`;
+
 export const Wrapper = styled.div`
 	position: absolute;
     width: 100%;
     height: ${props => props.height};
     clip-path: inset(0);
 
-	animation: grow 1.8s ease-in-out;
+	animation: grow 2.3s ease-in-out .5s both;
 	@keyframes grow {
 		from {height: 0;}
 		to { height: ${props => props.height}; }
@@ -44,7 +59,7 @@ export const Container = styled.div`
 		padding-bottom: 3px;
 	}
 
-	animation: print 2s ease-in-out;
+	animation: print 2.5s ease-in-out .5s both;
 	@keyframes print {
 		from {
 			transform: translateY(-100%);
@@ -63,8 +78,6 @@ export const Container = styled.div`
 
 	box-shadow: inset 0 2px 3px rgba(0,0,0,.5);
 `;
-
-
 
 export const Title = styled.p`
 	text-align: center;
@@ -102,5 +115,21 @@ export const Button = styled.button`
 	>svg {
 		vertical-align: middle;
 		margin-left: 5px;
+	}
+`;
+
+export const Message = styled.div`
+	color: var(--main-light);
+	font-size: 18px;
+	text-align: center;
+
+	animation: show .5s ease-in-out both;
+	@keyframes show {
+		from { 
+			opacity: 0; 
+		}
+		to { 
+			opacity: 1; 
+		}
 	}
 `;

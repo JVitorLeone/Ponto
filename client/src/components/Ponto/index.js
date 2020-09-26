@@ -2,8 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 
 import {
 	Container,
-	PontoBox,
-	Row
+	PontoBox
 } from './style';
 
 import Context from '../../GlobalContext';
@@ -21,6 +20,8 @@ function Ponto(){
 	const [limit, setLimit] = useState(31680500);
 
 	const [printTicket, setPrintTicket] = useState(false);
+	const [printPonto, setPrintPonto] = useState(true);
+	const [slideUp, setSlideUp] = useState(false);
 
 	const [active, setActive] = useState(false);
 
@@ -53,30 +54,27 @@ function Ponto(){
 
 		if (currentPeriod.finish == null) stopPeriod();
 
-		setPrintTicket(true);
+		setSlideUp(true);
+		setTimeout(() => setPrintTicket(true), 1850);
+		setTimeout(() => setPrintPonto(false), 2500);
 	};
 
 	const closeJourney = () => {
 		addJourney(currentJourney);
 		setPrintTicket(false);
+		setSlideUp(false);
+		setPrintPonto(true);
 	}
 
 	return (
 		<Container>
-			<PontoBox>
-				<Row>
-					<Watch
-						time={ currentTime }
-						setTime={ (t) => setCurrentTime(t) }
-					/>
-					{ printTicket && (
-						<Ticket
-							closeJourney={ () => closeJourney() }
-						/>
-					)}
-
-				</Row>
-
+			{ printPonto && (
+				<PontoBox  className={ slideUp ? 'slide' : '' }>
+				<Watch
+					time={ currentTime }
+					setTime={ (t) => setCurrentTime(t) }
+				/>
+	
 				<Hourglass
 					isActive={ active }
 					currentTime={ currentTime }
@@ -94,8 +92,13 @@ function Ponto(){
 					setLimit={ (l) => setLimit(l) }
 					limit={ limit }
 				/>
-
 			</PontoBox>
+			)}
+			{ printTicket && (
+				<Ticket
+					closeJourney={ () => closeJourney() }
+				/>
+			)}
 		</Container>
 	);
 }

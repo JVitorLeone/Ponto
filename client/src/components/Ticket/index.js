@@ -6,10 +6,11 @@ import {
 } from '../../utils/DateUtils';
 
 import {
-	Wrapper,
+	Wrapper, R,
 	Container, Printer,
 	Title, Periods,
-	Period, Button
+	Period, Button,
+	Message
 } from './style';
 
 import Context from '../../GlobalContext';
@@ -39,29 +40,36 @@ function Ticket(props){
 	var height = periods ? ( 182 + periods.length * 17 ) : 0;
 
 	return (
-		<Printer title="Retire seu comprovante aqui">
-			<Wrapper height={ height + "px" }>
-				<Container opacity={ opacity }>
-					<Title>Registro de Horas</Title>
-					<p>Data: { getDateString(date) }</p>
-					<Periods>
-						<span>Periodos({periods.length}): </span>
-						<span>
-							<Period>
-								<span>Início</span>
-								<span>Fim</span>
-							</Period>
-							{renderPeriods}
-						</span>
-					</Periods>
-					<p>Total: { getTimeToHourString(totalTime()) }</p>
-					<Button
-						onClick={ () => closeJourney() }>
-						Arquivar
-					</Button>
-				</Container>
-			</Wrapper>
-		</Printer>
+		<R>
+			<Message>
+				Bom trabalho, você completou a sua jornada! 
+				<br /><br />
+				Retire o seu ticket, e relaxe 🤙
+			</Message>
+			<Printer title="Retire seu comprovante aqui">
+				<Wrapper height={ height + "px" }>
+					<Container opacity={ opacity }>
+						<Title>Registro de Horas</Title>
+						<p>Data: { getDateString(date) }</p>
+						<Periods>
+							<span>Periodos({periods.length}): </span>
+							<span>
+								<Period>
+									<span>Início</span>
+									<span>Fim</span>
+								</Period>
+								{renderPeriods}
+							</span>
+						</Periods>
+						<p>Total: { getTimeToHourString(totalTime()) }</p>
+						<Button
+							onClick={ () => closeJourney() }>
+							Arquivar
+						</Button>
+					</Container>
+				</Wrapper>
+			</Printer>
+		</R>
 	);
 }
 

@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+	position: relative;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 
 	background-color: var(--main-dark);
 
@@ -11,7 +13,21 @@ export const Container = styled.div`
 
 	margin: 0 auto;
 	padding: 3px;
+
+	.slide {
+		animation: slide 1.8s ease-in-out forwards;
+		@keyframes slide {
+			from {
+				transform: translateY(0%);
+			}
+			to {
+				transform: translateY(-100%);
+			}
+		};
+	}
 `;
+
+export const Wrapper = styled.div``;
 
 export const PontoBox = styled.div`
 	display: flex;
@@ -32,6 +48,16 @@ export const PontoBox = styled.div`
 		width: 498px;
 		padding: 25px;
 	}
+
+	animation: slidedown 1s ease-in-out forwards reverse;
+	@keyframes slidedown {
+		from {
+			transform: translateY(0%);
+		}
+		to {
+			transform: translateY(-100%);
+		}
+	};
 `;
 
 export const Actions = styled.div`
@@ -39,8 +65,4 @@ export const Actions = styled.div`
 	height: 100%;
 	background-color: var(--sec-dark);
 	z-index: 1;
-`;
-
-export const Row = styled.div`
-	width: 100%;
 `;
