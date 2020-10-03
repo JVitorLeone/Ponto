@@ -77,6 +77,7 @@ function ButtonTray(props) {
 					<Settings
 						setLimit={(l) => setLimit(l)}
 						limit={ limit }
+						close={ () => setSettingsIsOpen(false) }
 					/>
 				)}
 			</Wrapper>

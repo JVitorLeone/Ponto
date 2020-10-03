@@ -15,7 +15,7 @@ import {
 			adicionar um limite
 */
 
-function Settings({limit, setLimit}){
+function Settings({limit, setLimit, close}){
 	const [values, setValues] = useState({
 		limit: getTimeToHourString(limit).slice(0,5),
 		max_pause: 0
@@ -29,7 +29,10 @@ function Settings({limit, setLimit}){
 	}
 
 	function saveValues() {
-		if (values.limit) setLimit(getTime(values.limit));
+		if (values.limit) 
+			setLimit(getTime(values.limit));
+
+		close();
 	}
 
 	return (
