@@ -12,15 +12,15 @@ import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
 
 function Ponto(){
-	const {currentJourney, setJourney, addJourney} = useContext(Context);
+	const {currentJourney, setJourney} = useContext(Context);
 	var periods = currentJourney? currentJourney.periods : [];
 
 	const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
 	const [limit, setLimit] = useState(31680500);
 
-	const [printTicket, setPrintTicket] = useState(false);
-	const [printPonto, setPrintPonto] = useState(true);
+	const [displayTicket, setDisplayTicket] = useState(false);
+	const [displayPonto, setDisplayPonto] = useState(true);
 	const [slideUp, setSlideUp] = useState(false);
 
 	const [active, setActive] = useState(false);
@@ -55,20 +55,24 @@ function Ponto(){
 		if (currentPeriod.finish == null) stopPeriod();
 
 		setSlideUp(true);
-		setTimeout(() => setPrintTicket(true), 1850);
-		setTimeout(() => setPrintPonto(false), 2500);
+		setTimeout(() => setDisplayTicket(true), 1850);
+		setTimeout(() => setDisplayPonto(false), 2500);
 	};
 
 	const closeJourney = () => {
-		addJourney(currentJourney);
-		setPrintTicket(false);
+		setJourney({
+			...currentJourney,
+			finished: true
+		});
+
+		setDisplayTicket(false);
 		setSlideUp(false);
-		setPrintPonto(true);
+		setDisplayPonto(true);
 	}
 
 	return (
 		<Container>
-			{ printPonto && (
+			{ displayPonto && (
 				<PontoBox  className={ slideUp ? 'slide' : '' }>
 				<Watch
 					time={ currentTime }
@@ -94,7 +98,7 @@ function Ponto(){
 				/>
 			</PontoBox>
 			)}
-			{ printTicket && (
+			{ displayTicket && (
 				<Ticket
 					closeJourney={ () => closeJourney() }
 				/>

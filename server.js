@@ -46,7 +46,6 @@ app.get('/journey', (req, res) => {
 	var {user_id} = req.query;	
 
 	JourneyDAO.getUserJourneys(user_id, journeys => {
-		console.log(journeys);
 		if (journeys) {
 			res.send(journeys);
 		} else {

@@ -56,7 +56,7 @@ const insertPeriods = (periods, journey_id, cb) => {
 const updateJourney = (journey, cb) => {
 	var db = newConnection();
 
-	var {id, finished, periods} = journey;
+	var {id, finished} = journey;
 
 	sql = ` UPDATE journey SET finished = ? WHERE id = ?; `;
 

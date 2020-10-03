@@ -19,8 +19,10 @@ export function GlobalContext({ children }) {
 	const [userId, setUserId] = useState(1001);
 
 	const [currentJourney, setCurrenJourney] = useState(initJourney);
+	const [journeys, setJourneys] = useState([]);
 
 	useEffect(() => {
+
 		const remoteJourneyUpdate = async(journey) => {
 			const options = {
 				method: "POST",
@@ -50,9 +52,19 @@ export function GlobalContext({ children }) {
 				console.log("Erro: " + error);
 			}
 		}
+			
+		if (!currentJourney.upToDate) 
+			remoteJourneyUpdate(currentJourney);
 
-		if (!currentJourney.upToDate) remoteJourneyUpdate(currentJourney);
-	},[currentJourney]);
+		if (currentJourney.finished && currentJourney.upToDate) {
+			setJourneys([
+				...journeys,
+				currentJourney.id
+			]);
+			setCurrenJourney(initJourney);
+		}
+
+	},[currentJourney, journeys]);
 
 	const setJourney = (journey) => {
 		setCurrenJourney({
@@ -65,20 +77,9 @@ export function GlobalContext({ children }) {
 		});
 	};
 
-	const [journeys, setJourneys] = useState([]);
-
-	const addJourney = () => {
-		setJourneys([
-			...journeys,
-			currentJourney
-		]);
-
-		setCurrenJourney(initJourney);
-	};
-
 	return (
 		<Context.Provider
-			value={{ currentJourney, setJourney, addJourney }}>
+			value={{ currentJourney, setJourney }}>
 			{ children }
 		</Context.Provider>
 	)
