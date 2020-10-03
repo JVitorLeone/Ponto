@@ -19,7 +19,9 @@ function Hourglass(props){
 	const [closedTime, setClosedTime] = useState(0);
 	const [durations, setDurations] = useState([]);
 	const totalTime = closedTime + openTime;
-	const remainingTime = limit !== 0 ? limit - (closedTime + openTime) : 0;
+	const remainingTime = totalTime < limit ? (
+		limit - totalTime
+	) : 0;
 
 	useEffect(() => {
 		function openPeriodHours() {
