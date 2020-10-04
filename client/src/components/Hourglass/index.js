@@ -15,64 +15,47 @@ import {ChevronUpIcon, ChevronDownIcon} from '../../icons';
 function Hourglass(props){
 
 	const {isActive, currentTime, periods, limit} = props;
-	const [openTime, setOpenTime] = useState(0);
-	const [closedTime, setClosedTime] = useState(0);
-	const [durations, setDurations] = useState([]);
-	const totalTime = closedTime + openTime;
+	const [totalTime, setTotalTime] = useState(calculateDuration(periods));
+
 	const remainingTime = totalTime < limit ? (
 		limit - totalTime
 	) : 0;
 
-	useEffect(() => {
-		function openPeriodHours() {
-			let start = periods.slice(-1)[0].start;
-			let end = currentTime;
-			return Math.round(end - start);
+	function calculateDuration(periods) {
+		let sum = 0;
+
+		if (periods.length > 0) {
+			sum = sumClosedPeriods(periods);	
+
+			let lastPeriod = periods.slice(-1)[0];
+
+			if (lastPeriod.finish == null) 
+				sum += (currentTime - lastPeriod.start);
 		}
 
+		return sum;
+	}
+
+	function sumClosedPeriods(periods) {
+		let sum = 0;
+		for (var period of periods) {
+			if (period.finish !== null)
+				sum += period.finish - period.start;
+		}
+		return sum;
+	}
+
+	useEffect(() => {
 		function updateTime() {
 			if (isActive) {
-				setOpenTime(
-					Math.round(openPeriodHours())
+				setTotalTime(
+					calculateDuration(periods)
 				);
 			}
 		}
 
 		updateTime();
-	},[currentTime]);
-
-	useEffect(() => {
-		function closedPeriodHours(period) {
-			let start = period.start;
-			let end = period.finish;
-			return Math.round(end - start);
-		}
-
-		let last = periods.slice(-1)[0];
-
-		if (last !== undefined) {
-			if (last.finish !== null) {
-				setDurations([
-					...durations,
-					closedPeriodHours(last)
-				]);
-			}
-		} else {
-			setOpenTime(0);
-			setClosedTime(0);
-		}
-	},[periods]);
-
-	useEffect(() => {
-		setOpenTime(0);
-	},[closedTime]);
-
-	useEffect(() => {
-		if (durations.length) {
-			let sum = closedTime + durations.slice(-1)[0];
-			setClosedTime(sum);
-		}
-	},[durations]);
+	},[currentTime, periods]);
 
 	const [showPeriods, setShowPeriods] = useState(false);
 	let counter = 0;

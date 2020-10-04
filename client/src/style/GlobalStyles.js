@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
 
 	:root {
 		--main-dark: rgb(28, 28, 28);
@@ -34,4 +34,38 @@ const GlobalStyles = createGlobalStyle`
 	}
 `;
 
-export { GlobalStyles };
+export const Container = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	background-color: var(--main-dark);
+
+	width: 100vw;
+	min-height: 100vh;
+
+	margin: 0 auto;
+	padding: 3px;
+
+	.slide {
+		animation: slide 1.8s ease-in-out forwards;
+		@keyframes slide {
+			from {
+				transform: translateY(0%);
+			}
+			to {
+				transform: translateY(-100%);
+			}
+		};
+	}
+`;
+
+export const Wrapper = styled.div`
+	position: relative;
+
+	min-width: 300px;
+	@media (min-width: 500px){
+		width: 498px;
+	}
+`;

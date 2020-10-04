@@ -56,7 +56,7 @@ export function GlobalContext({ children }) {
 		if (!currentJourney.upToDate) 
 			remoteJourneyUpdate(currentJourney);
 
-		if (currentJourney.finished && currentJourney.upToDate) {
+		if (currentJourney.finished) {
 			setJourneys([
 				...journeys,
 				currentJourney.id
