@@ -63,6 +63,10 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
 	position: relative;
+	display: flex;
+	justify-content: center;
+
+	flex-grow: 1;
 
 	min-width: 300px;
 	@media (min-width: 500px){

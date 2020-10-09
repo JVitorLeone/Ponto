@@ -1,5 +1,19 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div`
+	width: 100%;
+
+	animation: slidedown 1s ease-in-out forwards reverse;
+	@keyframes slidedown {
+		from {
+			transform: translateY(0%);
+		}
+		to {
+			transform: translateY(-100%);
+		}
+	};
+`;
+
 export const PontoBox = styled.div`
 	position: relative;
 	display: flex;
@@ -18,16 +32,6 @@ export const PontoBox = styled.div`
 	@media (min-width: 500px) {
 		padding: 25px;
 	}
-
-	animation: slidedown 1s ease-in-out forwards reverse;
-	@keyframes slidedown {
-		from {
-			transform: translateY(0%);
-		}
-		to {
-			transform: translateY(-100%);
-		}
-	};
 `;
 
 

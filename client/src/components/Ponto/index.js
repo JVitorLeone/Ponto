@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 
 import {
-	PontoBox
+	PontoBox, Wrapper
 } from './style';
 
 import Context from '../../GlobalContext';
@@ -81,36 +81,37 @@ function Ponto(){
 	return (
 		<>
 			{ displayPonto && (
-				<PontoBox  
-					className={ slideUp ? 'slide' : '' }>
+				<Wrapper className={ slideUp ? 'slide' : '' }>
+					<PontoBox>
 
-					<Watch
-						time={ currentTime }
-						setTime={ (t) => setCurrentTime(t) } />
+						<Watch
+							time={ currentTime }
+							setTime={ (t) => setCurrentTime(t) } />
+			
+						<Hourglass
+							isActive={ active }
+							currentTime={ currentTime }
+							limit = { limit }
+							periods={ periods } />
+
+						<ButtonTray
+							canStart={ limit !== 0 }
+							canFinish={ !!periods.length }
+							isActive={ active }
+							start={ () => startPeriod() }
+							stop={ () => stopPeriod() }
+							finish={ () => finishPeriod() }
+							setLimit={ (l) => setLimit(l) }
+							limit={ limit } />
 		
-					<Hourglass
-						isActive={ active }
-						currentTime={ currentTime }
-						limit = { limit }
-						periods={ periods } />
-
-					<ButtonTray
-						canStart={ limit !== 0 }
-						canFinish={ !!periods.length }
-						isActive={ active }
-						start={ () => startPeriod() }
-						stop={ () => stopPeriod() }
-						finish={ () => finishPeriod() }
-						setLimit={ (l) => setLimit(l) }
-						limit={ limit } />
-						
-				</PontoBox>
+					</PontoBox>
+					<Navigator />
+				</Wrapper>
 			)}
 			{ displayTicket && (
 				<Ticket
 					closeJourney={ () => closeJourney() } />
-			)}
-			<Navigator />
+			)}					
 		</>
 	);
 }
