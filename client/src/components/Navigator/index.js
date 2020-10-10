@@ -17,7 +17,7 @@ function Navigator(props) {
                 onClick={ () => history.push("/ponto") }
                 title="Ponto"
                 color={"rgb(235, 45, 45)"} 
-                active={ active == '/ponto' } >
+                active={ active === '/ponto' } >
                     <ClockIcon/>
             </Button>
 
@@ -25,7 +25,7 @@ function Navigator(props) {
                 onClick={ () => history.push("/journeys") }
                 title="Jornadas" 
                 color={"rgb(255, 227, 0)"} 
-                active={ active == '/journeys' } >
+                active={ active === '/journeys' } >
                     <FolderIcon/>
             </Button>
 

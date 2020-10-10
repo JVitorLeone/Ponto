@@ -9,7 +9,6 @@ import {Watch} from '../Watch';
 import {ButtonTray} from '../ButtonTray';
 import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
-import {Navigator} from '../Navigator';
 
 function Ponto(){
 
@@ -105,7 +104,6 @@ function Ponto(){
 							limit={ limit } />
 		
 					</PontoBox>
-					<Navigator />
 				</Wrapper>
 			)}
 			{ displayTicket && (

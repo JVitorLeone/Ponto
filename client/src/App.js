@@ -14,26 +14,35 @@ import {Journeys} from './components/Journeys';
 import {Navigator} from './components/Navigator';
 
 function App() {
-	const history = useHistory();
-
 	return (
 		<GlobalContext>
 			<Container>
 				<Wrapper>
-
 					<BrowserRouter>
 
 						<Switch>
-							<Route path="/ponto" exact={true} component={ Ponto } />
-							<Route path="/journeys" exact={true} component={ Journeys } />
+							<Route path="/ponto" exact={true} render={ () => {
+								return ComponentWithNavigator(<Ponto/>); 
+							}}/>
+							<Route path="/journeys" exact={true} render={ () => {
+								return ComponentWithNavigator(<Journeys/>); 
+							}}/>
 						</Switch>
 
 						<GlobalStyles/>
 					</ BrowserRouter>
-
 				</Wrapper>
 			</Container>
 		</GlobalContext>
+	);
+}
+
+function ComponentWithNavigator(component) {
+	return (
+		<>
+			<Navigator/>
+			{component}
+		</>
 	);
 }
 
