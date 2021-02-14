@@ -28,3 +28,7 @@ export function getDateString(date) {
 export function getHourString(date) {
 	return new Date(date).toLocaleString().slice(11);
 }
+
+export function getHourNoSecString(date) {
+	return new Date(date).toLocaleString().slice(11,16);
+}

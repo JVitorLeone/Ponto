@@ -1,34 +1,45 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-
-import {FolderIcon, ClockIcon} from '../../icons';
 import {Container, Button} from './style';
+
+import {HomeIcon} from '../../icons';
 
 function Navigator(props) {
     const history = useHistory();
-    
-    let active = history.location.pathname;
-    console.log(active);
+    const [active, setActive] = useState();
+    const {items} = props;
+
+    const onClick = (item) => {
+        setActive(item.title);
+        item.onClick();
+    }
+
+    useEffect(() => {
+        if (props.items[0])
+            setActive(props.items[0].title);
+    },[]);
 
     return (
         <Container>
+            {items.map((item, key) => {
+                return (
+                    <Button
+                        key={key}
+                        onClick={ () => onClick(item) }
+                        title={item.title}
+                        active={ active === item.title } >
+                            <item.icon/>
+                    </Button>    
+                );
+            })}
 
             <Button
-                onClick={ () => history.push("/ponto") }
-                title="Ponto"
-                color={"rgb(235, 45, 45)"} 
-                active={ active === '/ponto' } >
-                    <ClockIcon/>
-            </Button>
-
-            <Button 
-                onClick={ () => history.push("/journeys") }
-                title="Jornadas" 
-                color={"rgb(255, 227, 0)"} 
-                active={ active === '/journeys' } >
-                    <FolderIcon/>
-            </Button>
-
+                key={9999}
+                onClick={ () => history.push('/') }
+                title="Home"
+                active={ active === "Home" } >
+                    <HomeIcon />
+            </Button> 
         </Container>
     );
 }

@@ -35,7 +35,7 @@ export const Button = styled.button`
     background-color: ${props => props.active? 'var(--sec-dark)' : 'var(--main-dark);'};
 
     :hover {
-        background-color: var(--ter-dark);
+        background-color: ${props => props.active? 'var(--sec-dark)' : 'var(--ter-dark);'};
     }
 
     border: 1px solid rgba(0,0,0,.2);
@@ -45,7 +45,6 @@ export const Button = styled.button`
     cursor: pointer;
 
     >svg {
-        /* color: ${props => props.color}; */
         color: var(--green);
     }
 

@@ -13,7 +13,11 @@ function Watch({ time, setTime }) {
 	};
 
 	useEffect(() => {
-		setInterval(tick, 1000);
+		let interval = setInterval(tick, 1000);
+
+		return function cleanup () {
+			clearInterval(interval);
+		}
 	},[]);
 
 	return (

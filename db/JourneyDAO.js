@@ -154,6 +154,7 @@ function convertJourneyRow(rows) {
 	for (var row of rows) {
 		if (currId !== row.id) {
 
+			console.log("is finished: "+ row.finished)
 			currJourney = journeys[
 				journeys.push({
 					user_id: row.user_id,

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
 	width: 100%;
 
-	animation: slidedown 1s ease-out forwards reverse;
+	/* animation: slidedown 1s ease-out forwards reverse;
 	@keyframes slidedown {
 		from {
 			transform: translateY(0%);
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 		to {
 			transform: translateY(-100%);
 		}
-	};
+	}; */
 `;
 
 export const PontoBox = styled.div`

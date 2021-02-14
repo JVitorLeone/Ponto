@@ -43,9 +43,9 @@ app.get('/journey', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Content-Type', 'application/json');
 
-	var {user_id} = req.query;	
+	var {user} = req.query;	
 
-	JourneyDAO.getUserJourneys(user_id, journeys => {
+	JourneyDAO.getUserJourneys(user, journeys => {
 		if (journeys) {
 			res.send(journeys);
 		} else {

@@ -64,12 +64,16 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
 	position: relative;
 	display: flex;
-	justify-content: center;
+	align-items: center;
 
+	flex-direction: column;
 	flex-grow: 1;
 
 	min-width: 300px;
 	@media (min-width: 500px){
-		width: 498px;
+		width: 450px;
+		flex-direction: row;
+		align-items: unset;
+		justify-content: center;
 	}
 `;

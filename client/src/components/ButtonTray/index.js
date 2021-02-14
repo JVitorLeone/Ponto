@@ -12,7 +12,6 @@ import {
 	PauseIcon,
 	PlayIcon,
 	CheckIcon,
-	SettingsIcon,
 	ChevronsUpIcon,
 	ChevronsDownIcon
 } from '../../icons';
@@ -33,8 +32,7 @@ function ButtonTray(props) {
 	var ableToStart = isActive ? false : canStart;
 
 	const [settingsIsOpen, setSettingsIsOpen] = useState(false);
-
-	var title = !ableToStart && canFinish;
+	
 	return (
 		<Container>
 			<Row>

@@ -3,15 +3,13 @@ import {
 	BrowserRouter,
 	Switch,
 	Route, 
-	useHistory
 } from 'react-router-dom';
 
 import {GlobalContext} from './GlobalContext';
 import {GlobalStyles, Container, Wrapper} from './style/GlobalStyles';
 
 import {Ponto} from './components/Ponto';
-import {Journeys} from './components/Journeys';
-import {Navigator} from './components/Navigator';
+import {Home} from './components/Home';
 
 function App() {
 	return (
@@ -21,11 +19,11 @@ function App() {
 					<BrowserRouter>
 
 						<Switch>
-							<Route path="/ponto" exact={true} render={ () => {
-								return ComponentWithNavigator(<Ponto/>); 
+							<Route path="/" exact={true} render={ () => {
+								return <Home/>; 
 							}}/>
-							<Route path="/journeys" exact={true} render={ () => {
-								return ComponentWithNavigator(<Journeys/>); 
+							<Route path="/ponto" exact={true} render={ () => {
+								return <Ponto/>; 
 							}}/>
 						</Switch>
 
@@ -34,15 +32,6 @@ function App() {
 				</Wrapper>
 			</Container>
 		</GlobalContext>
-	);
-}
-
-function ComponentWithNavigator(component) {
-	return (
-		<>
-			<Navigator/>
-			{component}
-		</>
 	);
 }
 

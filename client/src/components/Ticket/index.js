@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import {
 	getDateString,
 	getHourString,
@@ -20,7 +20,6 @@ function Ticket(props){
 	const {currentJourney} = useContext(Context);
 	const {closeJourney} = props;
 	const {date, periods} = currentJourney;
-	const [opacity, setOpacity] = useState(1);
 
 	const renderPeriods = periods && periods.map((period, key)=> (
 		<Period key={key}>
@@ -48,7 +47,7 @@ function Ticket(props){
 			</Message>
 			<Printer title="Retire seu comprovante aqui">
 				<Wrapper height={ height + "px" }>
-					<Container opacity={ opacity }>
+					<Container>
 						<Title>Registro de Horas</Title>
 						<p>Data: { getDateString(date) }</p>
 						<Periods>

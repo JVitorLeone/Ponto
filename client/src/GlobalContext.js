@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-const Context = React.createContext({
-	setPeriod: () => {}
-});
+import {useAPI} from './services/API';
+
+const Context = React.createContext();
 
 const initJourney = {
 	upToDate: true,
@@ -15,52 +15,30 @@ const initJourney = {
 export function GlobalContext({ children }) {
 
 	// TODO 
-	// Fazer login c/ google
+	// Criar API.js (updateJourney, getJourneys)
+	const API = useAPI();
+
 	const [userId, setUserId] = useState(1001);
 
 	const [currentJourney, setCurrenJourney] = useState(initJourney);
 	const [journeys, setJourneys] = useState([]);
 
 	useEffect(() => {
+		async function updateJourney(journey) {
+			let response = await API.updateJourney(journey);
 
-		const remoteJourneyUpdate = async(journey) => {
-			const options = {
-				method: "POST",
-				headers: new Headers({'content-type': 'application/json'}),
-				body: JSON.stringify(journey)
-			};
-
-			console.log(
-				journey
-			);
-			try {
-				let response = await fetch('http://localhost:5000/journey', options);
-				let data = await response.json();
-				// let data = response;
-
-				if (data.erro) {
-					// Alerta de erro
-					console.log("Erro: " + data.erro);
-				} else {
-					console.log(data);
-					setCurrenJourney({
-						...data,
-						upToDate: true
-					});
-				}
-			} catch(error)  {
-				console.log("Erro: " + error);
+			if (!response.erro) {
+				setCurrenJourney({
+					...response,
+					upToDate: true
+				});
 			}
 		}
-			
-		if (!currentJourney.upToDate) 
-			remoteJourneyUpdate(currentJourney);
+		if (!currentJourney.upToDate) {
+			updateJourney(currentJourney);
+		}
 
 		if (currentJourney.finished) {
-			setJourneys([
-				...journeys,
-				currentJourney.id
-			]);
 			setCurrenJourney(initJourney);
 		}
 
@@ -77,9 +55,24 @@ export function GlobalContext({ children }) {
 		});
 	};
 
+	const updateJourneys = async () => {
+		let response = await API.getJourneys(userId);
+		if (!response.erro) {
+		 	setJourneys(response);
+		}
+	}
+	useEffect(() => {
+		updateJourneys();
+	},[]);
+
+	const getJourneys = (start, finish) => {
+		let copy = JSON.parse(JSON.stringify(journeys))
+		return copy.slice(start, finish);
+	}
+
 	return (
 		<Context.Provider
-			value={{ currentJourney, setJourney }}>
+			value={{ currentJourney, setJourney, getJourneys, journeys, updateJourneys, userId }}>
 			{ children }
 		</Context.Provider>
 	)

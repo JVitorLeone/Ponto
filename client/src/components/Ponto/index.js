@@ -4,11 +4,16 @@ import {
 	PontoBox, Wrapper
 } from './style';
 
+import {FolderIcon, ClockIcon} from '../../icons';
+
 import Context from '../../GlobalContext';
 import {Watch} from '../Watch';
 import {ButtonTray} from '../ButtonTray';
 import {Hourglass} from '../Hourglass';
 import {Ticket} from '../Ticket';
+import {Journeys} from '../Journeys';
+import {Navigator} from '../Navigator';
+
 
 function Ponto(){
 
@@ -19,7 +24,6 @@ function Ponto(){
 	if (periods.length > 0) {
 		let lastPeriod = periods.slice(-1)[0];
 		initialActive = (lastPeriod.finish == null);
-		console.log(lastPeriod.finish)
 	} 
 
 	const [currentTime, setCurrentTime] = useState(new Date().getTime());
@@ -28,6 +32,7 @@ function Ponto(){
 
 	const [displayTicket, setDisplayTicket] = useState(false);
 	const [displayPonto, setDisplayPonto] = useState(true);
+	const [displayJourneys, setDisplayJourneys] = useState(false);
 	const [slideUp, setSlideUp] = useState(false);
 
 	const [active, setActive] = useState(initialActive);
@@ -77,6 +82,24 @@ function Ponto(){
 		setDisplayPonto(true);
 	}
 
+	const Navigate = (displayPonto) => {
+		setDisplayPonto(displayPonto);
+		setDisplayJourneys(!displayPonto);
+	}
+
+	const NavigationItens = [
+		{
+			onClick: () => Navigate(true),
+			title: 'Ponto',
+			icon: ClockIcon
+		},
+		{
+			onClick: () => Navigate(false),
+			title: 'Jornadas',
+			icon: FolderIcon
+		}
+	];
+
 	return (
 		<>
 			{ displayPonto && (
@@ -109,7 +132,11 @@ function Ponto(){
 			{ displayTicket && (
 				<Ticket
 					closeJourney={ () => closeJourney() } />
-			)}					
+			)}		
+			{ displayJourneys && (
+				<Journeys />
+			)}	
+			<Navigator items={NavigationItens}/>		
 		</>
 	);
 }
